@@ -1,0 +1,717 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>特征值和特征根 | 蟛蜞</title><meta name="author" content="蟛蜞"><meta name="copyright" content="蟛蜞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="首发于物理学习笔记  数列、矩阵与微分方程的特征值  HM Zhao ​ 对数学和CS感兴趣的物理生 一、缘起 初中临近毕业，准备高中自招，误打误撞买了本高考自招指南。第一次见到了线性递推数列的特征根解法。后来学习物理竞赛，学解微分方程，在线性常系数常微分方程的解法中了解到了特征根解法。学线代的时候又接触到了矩阵的特征值。在数列、微分方程、矩阵三个不同的领域中都见到了“特征值”这个名字，难道仅仅是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征值和特征根">
+<meta property="og:url" content="http://example.com/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E6%A0%B9/index.html">
+<meta property="og:site_name" content="蟛蜞">
+<meta property="og:description" content="首发于物理学习笔记  数列、矩阵与微分方程的特征值  HM Zhao ​ 对数学和CS感兴趣的物理生 一、缘起 初中临近毕业，准备高中自招，误打误撞买了本高考自招指南。第一次见到了线性递推数列的特征根解法。后来学习物理竞赛，学解微分方程，在线性常系数常微分方程的解法中了解到了特征根解法。学线代的时候又接触到了矩阵的特征值。在数列、微分方程、矩阵三个不同的领域中都见到了“特征值”这个名字，难道仅仅是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ding.jpg">
+<meta property="article:published_time" content="2024-07-29T06:49:12.000Z">
+<meta property="article:modified_time" content="2025-03-03T09:24:18.685Z">
+<meta property="article:author" content="蟛蜞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ding.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "特征值和特征根",
+  "url": "http://example.com/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E6%A0%B9/",
+  "image": "http://example.com/img/ding.jpg",
+  "datePublished": "2024-07-29T06:49:12.000Z",
+  "dateModified": "2025-03-03T09:24:18.685Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "蟛蜞",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E6%A0%B9/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '特征值和特征根',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蟛蜞</span></a><a class="nav-page-title" href="/"><span class="site-name">特征值和特征根</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">特征值和特征根</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-29T06:49:12.000Z" title="发表于 2024-07-29 14:49:12">2024-07-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-03T09:24:18.685Z" title="更新于 2025-03-03 17:24:18">2025-03-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>首发于物理学习笔记</p>
+<p><img src="/images/5B930A3CD7CE41DC875232BC86A8A087bc06f_1440w.jpeg"></p>
+<p>数列、矩阵与微分方程的特征值</p>
+<p><img src="/images/98BB3200DE624FB3A1D16BBBDEFA2634084579e3_xs.jpeg"></p>
+<p>HM Zhao</p>
+<p>​</p>
+<p>对数学和CS感兴趣的物理生</p>
+<p>一、缘起</p>
+<p>初中临近毕业，准备高中自招，误打误撞买了本高考自招指南。第一次见到了线性递推数列的特征根解法。后来学习物理竞赛，学解微分方程，在线性常系数常微分方程的解法中了解到了特征根解法。学线代的时候又接触到了矩阵的特征值。在数列、微分方程、矩阵三个不同的领域中都见到了“特征值”这个名字，难道仅仅是因为他们都刻画了问题的特征吗？当时我想，一定不是的。或许这些特征值是同一个特征值。</p>
+<p>因为本人水平较低，这个问题断断续续地想了好几年，逐渐从各个角度撺出了一些头绪。本文对这些想法做一个介绍和总结，试图一窥这些特征值之间的关系。下文中很多内容是常见的数学基础知识，在各种教材中都可以见到，在此一并做一个回顾，故本文只需一点点微积分和线代基础即可阅读；另一些想法和关联是我自己凭空捏造出来的，完全有可能是瞎掰，望读者不吝指正。或许还有一些显而易见、呼之欲出的关联，因本人知识水平有限，无法注意到，望读者提点。</p>
+<p>我会先介绍预备知识引入，如果你已经会了的话请放心跳过。然后会探究数列、矩阵和微分方程中的特征值的关系。</p>
+<hr>
+<p>二、预备</p>
+<p>1、数列的特征值解法（来自高考学）</p>
+<p>相信高中学过数列的朋友们都听说过数列的特征根解法，下面我们以二阶齐次线性递推数列的特征根解法为例，做一个简单的介绍。高阶的版本同理。</p>
+<p>数列的特征根解法</p>
+<p>假设我们有一个二阶线性递推数列</p>
+<p><img src="/images/WEBRESOURCE7d8a9143f7b34fa8aeb2cd246d33511estickPicture.png"></p>
+<p>我们将其中的</p>
+<p><img src="/images/WEBRESOURCEb1094e3f80cf329d3091161d499ee130stickPicture.png"></p>
+<p>替换为</p>
+<p><img src="/images/WEBRESOURCEcc8d8b928445c6cd3b25e8ba72b234c7stickPicture.png"></p>
+<p>得到一个方程</p>
+<p><img src="/images/WEBRESOURCE42752acbdd88f5fafffb07c5efa9ff03stickPicture.png"></p>
+<p>我们将这个方程称为该递推式的特征方程。</p>
+<p>记该方程有两个根为</p>
+<p><img src="/images/WEBRESOURCE0e0ffa6c38094c17c4289698b7c2a8a9stickPicture.png"></p>
+<p>若</p>
+<p><img src="/images/WEBRESOURCEcbfd7209bc8ca0d7e8512200d61dbd51stickPicture.png"></p>
+<p>则数列的通项为</p>
+<p><img src="/images/WEBRESOURCE16317e779d65e320e27f4520f1f32e34stickPicture.png"></p>
+<p>，其中</p>
+<p><img src="/images/WEBRESOURCE1c8ddb93cf8551099f60bed689510861stickPicture.png"></p>
+<p>由初项确定。</p>
+<p>若</p>
+<p><img src="/images/WEBRESOURCE3fbfdcc45a205259be5ed875160916f6stickPicture.png"></p>
+<p>，则数列的通项为</p>
+<p><img src="/images/WEBRESOURCE6322fdccaa9cbae6507475a3e5467848stickPicture.png"></p>
+<p>。</p>
+<p>聪明的你或许已经注意到了我放着简单的x不用，偏要用TeX代码好长的\lambda，打得我累死了。以及特征根可以为复数，想一想，复数时会怎样？</p>
+<p>来自高考学的证明</p>
+<p>下面我们来做个简单的证明，这一证明常见于各种高考学教材，大家会注意到这一方法基本完全没有intuition指导，乍看起来莫名其妙，非常具有技巧性，让人好奇是怎么拍脑袋想出来的。</p>
+<p>有韦达定理可知</p>
+<p><img src="/images/WEBRESOURCE1d217a02bc39e8fec93be0b7aba8f7f7stickPicture.png"></p>
+<p>，代入递推式得到</p>
+<p>接下来神来之笔地移项，得到</p>
+<p>可见莫名其妙得到了一个等比数列，解之，得</p>
+<p>然后凑一凑，</p>
+<p>再累加，这时由于要求右侧等比数列的和，需要对公比是否等于1分类，</p>
+<p>若</p>
+<p><img src="/images/WEBRESOURCE4b872d9d642af625f96cba172f9d476cstickPicture.png"></p>
+<p>，则</p>
+<p>若</p>
+<p><img src="/images/WEBRESOURCEf84c5b0001a899bbfeab3dc1685e5116stickPicture.png"></p>
+<p>，应用等比数列求和公式可得</p>
+<p>希望你还没有因为枯燥的技巧性证明离开。</p>
+<p>2、矩阵的特征值（来自线性代数）</p>
+<p>先推荐3b1b的系列视频，学线代杀人越货必备。</p>
+<p>下面来简单介绍一下特征值。下列论述中若有不理解请直接到3b1b的视频里找对应章节。</p>
+<p>首先，矩阵描述了线性变换，一种理解是对基的变换，即将向量在一组基下的分量表示，变换到另一组基下的分量表示；另一种理解是对向量的变换，即将一个向量变换为另一个向量。</p>
+<p>我们先取后一种理解。</p>
+<p>矩阵的特征值与特征向量</p>
+<p>那么对一个线性变换</p>
+<p><img src="/images/WEBRESOURCEca344de5dfdec98aa09b3df331576fb4stickPicture.png"></p>
+<p>，可能存在一些向量</p>
+<p><img src="/images/WEBRESOURCEd64ca6ffce434dfa068ee1518efd73efstickPicture.png"></p>
+<p>，在这个变换下方向不变。用数学的语言，即</p>
+<p><img src="/images/WEBRESOURCE79d52afa7caa2a82ea7de9b6a8018f52stickPicture.png"></p>
+<p>。我们把这种向量称为</p>
+<p><img src="/images/WEBRESOURCEadaaece26dfb66bcaac909eb81a3c500stickPicture.png"></p>
+<p>的特征向量，对应的常数</p>
+<p><img src="/images/WEBRESOURCEc69aa9bd9a1114e289dfca68d8155522stickPicture.png"></p>
+<p>称为对应的特征值。</p>
+<p>为什么特征值值得我们研究？</p>
+<p>依我看，是因为它把矩阵的乘法变成了常数的乘法，在许多场合可以大大简化计算。</p>
+<p>最基本的求矩阵特征值的方法便是从定义</p>
+<p><img src="/images/WEBRESOURCE16d3a1186f3e6ae3c8d63b5c127ec7dfstickPicture.png"></p>
+<p>出发，我们做移项，得</p>
+<p>其中</p>
+<p><img src="/images/WEBRESOURCE00088976e9135d677a2478aca7b6e23fstickPicture.png"></p>
+<p>代表单位矩阵。为了得到非平凡解（</p>
+<p><img src="/images/WEBRESOURCE4bf20d6fe3035a7df8dcf661a45d5da5stickPicture.png"></p>
+<p>），必须要求前面的矩阵的行列式为零：</p>
+<p>该方程称为矩阵</p>
+<p><img src="/images/WEBRESOURCE2b9972e01f69cebe9814ae404e00ecf5stickPicture.png"></p>
+<p>的特征方程。</p>
+<p>举个例子</p>
+<p>我们举一个例子 （为什么我们要举这个例子？），</p>
+<p>特征方程就是</p>
+<p>展开得到</p>
+<p>上式的两个根即为该矩阵的两个特征值。再代入定义式便可得到对应的特征向量。</p>
+<p>另外多提一件事：</p>
+<p>线性方程组的叠加原理：线性齐次方程的解的叠加还是解。</p>
+<p>比如方程</p>
+<p><img src="/images/WEBRESOURCEe266d063bb4758b68d382eb722a02ab1stickPicture.png"></p>
+<p>有两个解</p>
+<p><img src="/images/WEBRESOURCEe1c7a97ded1e2122c84a139fb58758e4stickPicture.png"></p>
+<p>那么他们的线性叠加</p>
+<p><img src="/images/WEBRESOURCE122307fdfc08285c7f1f9adce35228f8stickPicture.png"></p>
+<p>也是解。</p>
+<p>3、微分方程的特征值解法（来自微积分）</p>
+<p>学物理的同学可能经常会遇到线性微分方程，比如单摆的运动方程</p>
+<p><img src="/images/WEBRESOURCE25088476bac69d4e3354610eb22b1834stickPicture.png"></p>
+<p>。</p>
+<p>猜解</p>
+<p>解得时候老师经常会用“猜解”这种说辞糊弄人，我们拿二阶的方程做个例子。高阶同理。</p>
+<p>（以后我们在函数上打点即表示对时间</p>
+<p><img src="/images/WEBRESOURCE45e087c17637316b0a39f7664d9edceastickPicture.png"></p>
+<p>的导数，两个点就是二阶导，以此类推。同时我们有时将求导这件事写成一个算符</p>
+<p><img src="/images/WEBRESOURCE0dd91e13512307a8bd77e4ab7526bfe5stickPicture.png"></p>
+<p>的形式，比如</p>
+<p><img src="/images/WEBRESOURCEadbd100d7ce29469577f1afc162a7edastickPicture.png"></p>
+<p>。想一下，为什么要写成这种难看的形式？）</p>
+<p>猜</p>
+<p><img src="/images/WEBRESOURCE28887dd24d9bf623a23bc9854bd3a9ecstickPicture.png"></p>
+<p>，代入方程，由于我们知道</p>
+<p><img src="/images/WEBRESOURCEd5917b209191de3d9ba661b2fd599997stickPicture.png"></p>
+<p>（有没有联想到什么？）,约去指数部分，可得</p>
+<p>上式称为该微分方程的特征方程。解出来两个根</p>
+<p><img src="/images/WEBRESOURCEaa0ec2106b5abe1f445ee2193b67808dstickPicture.png"></p>
+<p>如果</p>
+<p><img src="/images/WEBRESOURCEeabe90782709dbb91a9fbb05c49e9bb4stickPicture.png"></p>
+<p>那么方程的通解为</p>
+<p><img src="/images/WEBRESOURCE65c72630d186730c990e754971b55664stickPicture.png"></p>
+<p>。（老师说这叫叠加原理）</p>
+<p>如果</p>
+<p><img src="/images/WEBRESOURCE450f6f44a58b1034a418666ca4435355stickPicture.png"></p>
+<p>那么方程的通解为</p>
+<p><img src="/images/WEBRESOURCEc5dfe4648bc673a1be4fb8f58985d4a4stickPicture.png"></p>
+<p>。（有没有联想到什么？）</p>
+<p>以上这种“不证自明”的猜解方法又透露出了我们在数列板块中熟悉的莫名其妙。只是这次我打算把证明留到后面。在那里，我们将要引入傅里叶变换及拉普拉斯变换。</p>
+<p>相信到目前为止，你或许已经从不同板块中的相似式子里看出了一些端倪。年轻的我当时就是在这种好奇地驱使下开始思考其间的关系。以下我们将要开始对其中的关联做一些探究。</p>
+<p>如果你想要休息一下，现在是个好时候。</p>
+<hr>
+<p>三、关系</p>
+<p>1、从数列到微分方程</p>
+<p>注意：以下内容是我在某个夜晚灵机一动捏造出来的，有可能是错的。</p>
+<p>让我们先来观察对比一下数列递推方程和微分方程（高阶同理）：</p>
+<p>特征方程均为</p>
+<p>你有没有突然觉得，数列每递推一项，就好像多求了一阶导数？</p>
+<p>基于这个重要的观察，我们或许可以构造一个函数出来，</p>
+<p>让这个函数每多求一次导，就可以生产出数列的一项。</p>
+<p>函数有自变量，因此我们还要找一个自变量把数列的项给套出来。</p>
+<p>我想到了我们最熟悉的多项式函数，并且想不妨就用</p>
+<p><img src="/images/WEBRESOURCE932ea161bf5bb2de9cc566a80eea1bd9stickPicture.png"></p>
+<p>把数列套出来，于是我们构造：</p>
+<p>（是不是和泰勒展开很像？）</p>
+<p>这样，</p>
+<p><img src="/images/WEBRESOURCE12b4cf548acd18223057cc5b8273656bstickPicture.png"></p>
+<p>，我们便可以从函数中套出数列了。</p>
+<p>（事后证明，这与组合数学中的母函数思想类似，不过我不会组合数学，母函数这个名字还是从OI同学那听来的，便不多说了。）</p>
+<p>接着我们把这个函数代入数列递推式，得到</p>
+<p>为了让它更接近微分方程，我们不妨给这个函数多做点约束。原先递推方程只要求函数在</p>
+<p><img src="/images/WEBRESOURCE8e9fa8f3372b1bb1b6c485eb6b466cafstickPicture.png"></p>
+<p>处满足，我们不妨让它在处处均要满足，来试一试。于是我们得到</p>
+<p>这时，如果我们把函数</p>
+<p><img src="/images/WEBRESOURCE810ebeaf779fe2da4b1a17c569d29423stickPicture.png"></p>
+<p>看作一个整体，记作</p>
+<p><img src="/images/WEBRESOURCEdcf37b0e81d0848914d11fc32706098bstickPicture.png"></p>
+<p>，则</p>
+<p><img src="/images/WEBRESOURCEe072a23187a04f3f06ffa5ea9f0d12a1stickPicture.png"></p>
+<p>，而且</p>
+<p>至此，我们成功把数列递推方程转化为了微分方程！！</p>
+<p>接下来我们尝试用解微分方程的方法解出这个数列，并在其中体会二者的一致性。</p>
+<p>我们取信息量最大（求导次数最少）的方程，即n&#x3D;0，</p>
+<p><img src="/images/WEBRESOURCE5b44bbd58418cf7595e78f9339b9f142stickPicture.png"></p>
+<p>：</p>
+<p>用二-3中已经推导的结论，我们得到</p>
+<p><img src="/images/WEBRESOURCE41e77b7ae689d9dde0f12eb324a7d334stickPicture.png"></p>
+<p>或</p>
+<p><img src="/images/WEBRESOURCE9caac025a88f3682951fb5495e4ec365stickPicture.png"></p>
+<p>。</p>
+<p>于是</p>
+<p><img src="/images/WEBRESOURCE5049f9e6261675cd644e833cc348230estickPicture.png"></p>
+<p>或者</p>
+<p><img src="/images/WEBRESOURCE493b32e8a4331d7f3e6f32b89623b90fstickPicture.png"></p>
+<p>注意到这里推导的时候有两件事：</p>
+<ol>
+<li>为了保持一致性，额外的系数被吸收进了</li>
+</ol>
+<p><img src="/images/WEBRESOURCE8808f95c3224ccf8c8a32206deb46b52stickPicture.png"></p>
+<p>两个常数里；</p>
+<ol>
+<li>第二种情况中，所有求导出含</li>
+</ol>
+<p><img src="/images/WEBRESOURCEfb262961f1c31e6850bb1ad94e9dd38astickPicture.png"></p>
+<p>的项都会因为</p>
+<p><img src="/images/WEBRESOURCE4e48aa5891561353d17fc471783ec6a1stickPicture.png"></p>
+<p>而消失，故略去不写，而反复应用乘积的求导法则，便会产生</p>
+<p><img src="/images/WEBRESOURCE910a923641c71e24da71e32839ec7246stickPicture.png"></p>
+<p>。</p>
+<p>由此，我们发现了数列特征根与微分方程特征根的一致性。</p>
+<p>我们发现，竟然之前因为等比数列求和公比等于1的奇葩分类也能通过微分方程复现。</p>
+<p>再次重申，上述过程是我拍脑袋想出来的，不保证正确性。</p>
+<p>评论区dalao提示这和Z变换与拉普拉斯变换的关系一致。</p>
+<p>2、从微分方程到矩阵</p>
+<p>这一步的联系是我在学习量子力学的时候学到的，让我们一步一步地来。</p>
+<p>首先，想要用线性代数的工具研究函数，我们就必须证明：</p>
+<p>函数是向量。</p>
+<p>我在初学时对这句话感到非常惊艳。</p>
+<p>我们先来回顾一下向量与线性空间的定义。</p>
+<p>以下抄百度百科：</p>
+<p>设V是一个非空集合，P是一个域，若：</p>
+<ol>
+<li><p>（加法的定义）在V中定义了一种运算，称为加法，即对V中任意两个元素α与β都按某一法则对应于V内惟一确定的一个元素α+β，称为α与β的和。</p>
+</li>
+<li><p>（数乘的定义）在P与V的元素间定义了一种运算，称为纯量乘法(亦称数量乘法)，即对V中任意元素α和P中任意元素k，都按某一法则对应V内惟一确定的一个元素kα，称为k与α的积。</p>
+</li>
+</ol>
+<p>3.（线性）加法与纯量乘法满足以下条件：</p>
+<ol>
+<li><p>α+β&#x3D;β+α，对任意α，β∈V.</p>
+</li>
+<li><p>α+(β+γ)&#x3D;(α+β)+γ，对任意α，β，γ∈V.</p>
+</li>
+<li><p>存在一个元素0∈V，对一切α∈V有α+0&#x3D;α，元素0称为V的零元.</p>
+</li>
+<li><p>对任一α∈V，都存在β∈V使α+β&#x3D;0，β称为α的负元素，记为-α.</p>
+</li>
+<li><p>对P中单位元1，有1α&#x3D;α(α∈V).</p>
+</li>
+<li><p>对任意k，l∈P，α∈V有(kl)α&#x3D;k(lα).</p>
+</li>
+<li><p>对任意k，l∈P，α∈V有(k+l)α&#x3D;kα+lα.</p>
+</li>
+<li><p>对任意k∈P，α，β∈V有k(α+β)&#x3D;kα+kβ.</p>
+</li>
+</ol>
+<p>则称V为域P上的一个线性空间，或向量空间。V中元素称为向量。</p>
+<p>接下来，如果我们定义函数之间的加法为自变量取值对应函数值直接相加，</p>
+<p>比如</p>
+<p><img src="/images/WEBRESOURCEa6f0842afdcd9a22b9aa67a3163da94astickPicture.png"></p>
+<p>那么</p>
+<p><img src="/images/WEBRESOURCEb2e74da50e51066fa312e2bd93e458f2stickPicture.png"></p>
+<p>，显然后者也是函数。</p>
+<p>如此可以证明，函数空间也是一个线性空间，而每个函数就是一个向量。</p>
+<p>接下来，我们便可以将平时在线代中发展出的工具应用到函数中。</p>
+<p>比如，我们可以定义内积。</p>
+<p>函数的内积</p>
+<p>理论上，只要给线性空间配备上任何一个满足一系列性质的映射（由两个向量映到一个数），得到的空间就被称作内积空间，如果再加上完备性的条件，则称作希尔伯特空间，这个映射被称为内积。</p>
+<p>我们这里采用一种量子力学当中的希尔伯特空间。</p>
+<p>（以下内容半抄Shankar Principles of Quantum Mechanics）</p>
+<p>接下来我们引入一组量子力学中的记号，狄拉克记号：</p>
+<p>我们把一个向量记作</p>
+<p><img src="/images/WEBRESOURCE925e0c0a83c7e64514a026e486b2e056stickPicture.png"></p>
+<p>，称为ket（braket的右半部分），把两个向量</p>
+<p><img src="/images/WEBRESOURCE945b7e1dcbc0b9f0def5b362b814e88bstickPicture.png"></p>
+<p>的内积记作</p>
+<p><img src="/images/WEBRESOURCE532a547eb12735c027cb239fe1a36b18stickPicture.png"></p>
+<p>或</p>
+<p><img src="/images/WEBRESOURCEf2fa7253efd21fcc0c2f819b18f5458cstickPicture.png"></p>
+<p>，其中</p>
+<p><img src="/images/WEBRESOURCE5ff8ffe9360043722934bf95fbec700bstickPicture.png"></p>
+<p>被称为bra（左半部分）。</p>
+<p>既然我们已经发现函数也是向量，我们不妨将函数</p>
+<p><img src="/images/WEBRESOURCEf7e2217b712f2f5d36ef25503b9a0696stickPicture.png"></p>
+<p>记作</p>
+<p><img src="/images/WEBRESOURCE3d094405b5b2d19a0509968e9867935dstickPicture.png"></p>
+<p>。</p>
+<p>为了量子力学的需要，我们定义函数间的内积为（接下来会解释为什么这样定义）：</p>
+<p><img src="/images/WEBRESOURCE5cb214779edcfc712f6fcd55592c4a28stickPicture.png"></p>
+<p>，其中</p>
+<p><img src="/images/WEBRESOURCE7eba33363ec8f545a25f0244f1ffe747stickPicture.png"></p>
+<p>表示</p>
+<p><img src="/images/WEBRESOURCEf2884256638e748267074c35875f5f61stickPicture.png"></p>
+<p>的复共轭。</p>
+<p>需要注意这样定义的内积与顺序有关，有</p>
+<p><img src="/images/WEBRESOURCEfd152bc499111a21896862587d713775stickPicture.png"></p>
+<p>。</p>
+<p>在线性代数中我们知道，一个向量本身，跟我们所选取的、用来描述他的基底无关。但我们描述它的时候，一般需要选取一组基底，用在各个基底上的分量来表述他。</p>
+<p>下面我们来考察如何把函数这个向量写成分量形式。</p>
+<p>函数的向量化</p>
+<p>回忆我们定义函数加法的时候，是要求每个自变量对应的函数值直接相加的。而向量相加，也是各个基底对应的分量直接相加的。从这一点出发，我们希望每个自变量的取值都对应一个基底，而这个对应的函数值则作为这个基底上的分量。</p>
+<p>于是我们把整个定义域分割成</p>
+<p><img src="/images/WEBRESOURCE9d1022e7e55615732b498881ce8a26e1stickPicture.png"></p>
+<p>个小段，每一段上定义一个基底</p>
+<p>，其中</p>
+<p><img src="/images/WEBRESOURCE20036b60f05073aa5aa205e7e0787209stickPicture.png"></p>
+<p>位于第</p>
+<p><img src="/images/WEBRESOURCE86d5d7310aaeb5867168570e8c673e6estickPicture.png"></p>
+<p>项。然后很自然地，我们的函数在这些基上的分量形式就可以定义为</p>
+<p>，而且有</p>
+<p><img src="/images/WEBRESOURCE34b958fc5cf3e6cb67e7e89b0010d0ddstickPicture.png"></p>
+<p>。</p>
+<p>当分隔数</p>
+<p><img src="/images/WEBRESOURCEe141ad5e3ca98e4919ba1affd1a9f020stickPicture.png"></p>
+<p>时，我们定义的</p>
+<p><img src="/images/WEBRESOURCE80d27328571464860daecba5bcee2c40stickPicture.png"></p>
+<p>向量便与原来的函数完全一致了。</p>
+<p>而这个时候，我们所定义的</p>
+<p><img src="/images/WEBRESOURCE1b3d469d2d0e1112430d78c2a91139e6stickPicture.png"></p>
+<p>就会变成在</p>
+<p><img src="/images/WEBRESOURCEa83033a2b51bc535af3fdf4285b77ed8stickPicture.png"></p>
+<p>处为</p>
+<p><img src="/images/WEBRESOURCEca3464fb4cc89330c09677de74bd8f73stickPicture.png"></p>
+<p>，其余处处为</p>
+<p><img src="/images/WEBRESOURCEc391975b0087b004fa5fc7920678d8dfstickPicture.png"></p>
+<p>，这样的函数我们称作</p>
+<p><img src="/images/WEBRESOURCEd9d270bd2f31aa9382894efbb4ad626dstickPicture.png"></p>
+<p>函数：</p>
+<p>至此有两个重要的启示：</p>
+<ol>
+<li><p>函数是无穷维的向量。</p>
+</li>
+<li><p>所谓的</p>
+</li>
+</ol>
+<p><img src="/images/WEBRESOURCE89acb54f6eca70a11e1eba67da529a20stickPicture.png"></p>
+<p>，其实是函数向量</p>
+<p><img src="/images/WEBRESOURCE411e47663b317d34388354be7c25a87estickPicture.png"></p>
+<p>在基底</p>
+<p><img src="/images/WEBRESOURCEaa43578776c21d5c221d79b7de032c11stickPicture.png"></p>
+<p>上的分量&#x2F;投影：</p>
+<p>(回忆在线性代数中我们可以通过把向量与基底做内积的方法得到对应的分量)</p>
+<p>上述是直观的解释，我们还需要证明一下</p>
+<p><img src="/images/WEBRESOURCE38f4510f7c456c55e220cb2cfc1a968cstickPicture.png"></p>
+<p>这组基的正交性、完备性，我就不证了。</p>
+<p>现在，函数的内积被定义为上面那个鬼样子的原因就一目了然了。</p>
+<p>我们知道普通向量的内积是对应分量直接相乘然后相加，而这里函数内积</p>
+<p>确实也是对应分量直接相乘然后相加。</p>
+<p>接下来我们试着把函数的求导运算也放入线性代数的框架下研究。</p>
+<p>导数算符的特征值和特征向量</p>
+<p>我们知道，在线性代数中，任何一个线性算符，都能用矩阵的形式表达。</p>
+<p>而求导运算显然也是线性的，那导数算符是否也有矩阵形式呢？是否也有特征值和特征向量呢？</p>
+<p>第一个问题与本文关系不大，大家可以翻Shankar。（其实我这里本来打了一大段，但是敲公式太累了，通通删了。）</p>
+<p>我们来看第二个问题，要求矩阵的特征值和特征向量，就是解方程</p>
+<p>我们把它改写成微分方程</p>
+<p><img src="/images/WEBRESOURCE232bc721a16e13b9a95f3404761959f0stickPicture.png"></p>
+<p>的话，解就显而易见了。</p>
+<p>没错，导数算符的特征向量就对应指数函数</p>
+<p><img src="/images/WEBRESOURCE90e7bf12e4bddb4d097a86d5d021c5a7stickPicture.png"></p>
+<p>。</p>
+<p>在这之后我们把这个函数对应的函数向量记作</p>
+<p><img src="/images/WEBRESOURCEe6debf99ed0cc69d471500ad1813a757stickPicture.png"></p>
+<p>，那么</p>
+<p><img src="/images/WEBRESOURCE0365adfc7c528e71b59fbed895b1c0d1stickPicture.png"></p>
+<p>，而它所对应的特征值就是</p>
+<p><img src="/images/WEBRESOURCE6f90874ab23acfb466d1364aeee3ddf6stickPicture.png"></p>
+<p>。</p>
+<p>（这里</p>
+<p><img src="/images/WEBRESOURCE917dd1da640abf6244ed9e5b3370eb66stickPicture.png"></p>
+<p>似乎可以取遍所有数，即无穷组特征值及特征向量，与线性空间的无穷维性质恰好对应。）</p>
+<p>回忆我们一开始介绍矩阵的特征值时，我们发现，特征值的一大作用，就是把复杂的矩阵运算变成简单的数乘。但是这一性质只有对特征向量满足。</p>
+<p>不过任何一个向量都可以被特征向量线性表出。所以，我们可以先把普通的向量换到特征向量基上表出，然后再进行矩阵运算，此时所有运算都变为简单的数乘了。</p>
+<p>用相同的思路，我们也可以把函数向量从原来的</p>
+<p><img src="/images/WEBRESOURCE42a2d523c3b1ecf2d273f1043968142estickPicture.png"></p>
+<p>基下，变换到</p>
+<p><img src="/images/WEBRESOURCEfca2ed49140fff2e0a3fcaa00ea5fb74stickPicture.png"></p>
+<p>基下。这种变换被称为傅里叶&#x2F;拉普拉斯变换。</p>
+<p>傅里叶&#x2F;拉普拉斯变换</p>
+<p>我们来尝试一下把函数变到</p>
+<p><img src="/images/WEBRESOURCE37e4073be0c7aaab57c053ca8a0905f9stickPicture.png"></p>
+<p>基下：</p>
+<p>特别的如果取纯虚数</p>
+<p><img src="/images/WEBRESOURCE867a9170377742a8f621f6f953b8d48astickPicture.png"></p>
+<p>，我们就会得到</p>
+<p><img src="/images/WEBRESOURCEff30e9de0941620e3f76808b6a098ae4stickPicture.png"></p>
+<p>怎么样，是不是和我们以前学的傅里叶变换一模一样？</p>
+<p>这里我没有考虑归一化的问题，如果做归一化，便会出现</p>
+<p><img src="/images/WEBRESOURCEa72006dce3ebe42892d41ef319d1ac7bstickPicture.png"></p>
+<p>的系数。</p>
+<p>同理，如果我们想要从</p>
+<p><img src="/images/WEBRESOURCE100aac8ae75a489fba85a00c420b540fstickPicture.png"></p>
+<p>基下变换到</p>
+<p><img src="/images/WEBRESOURCE820d6f6783bc0b35cfde33ffb7732cefstickPicture.png"></p>
+<p>基上，便会得到傅里叶逆变换。</p>
+<p>这里有一些细节问题（经评论区dalao指出）</p>
+<p>1、为什么</p>
+<p><img src="/images/WEBRESOURCE3007b1216373c0bf055ca5b9fae1f1f6stickPicture.png"></p>
+<p>只能取纯虚数？</p>
+<p>原因在于导数算符</p>
+<p><img src="/images/WEBRESOURCE75481b2ef98fa4cdc17862e87fbb190fstickPicture.png"></p>
+<p>并非是一个厄米算符（</p>
+<p><img src="/images/WEBRESOURCEa07a7c61dc31e1a64590c47f42c1bcb9stickPicture.png"></p>
+<p>），但是</p>
+<p><img src="/images/WEBRESOURCE28b541958d68c4e6132c70da5e61a6d8stickPicture.png"></p>
+<p>是一个厄米算符（一般量子力学中将其称为动量算符），而厄米算符的特征值是实数，所以除掉一个</p>
+<p><img src="/images/WEBRESOURCE191c8154bbb1926ae0e753ad2d51b597stickPicture.png"></p>
+<p>之后，</p>
+<p><img src="/images/WEBRESOURCEea537879796ab26f1a9610c5e4d049c7stickPicture.png"></p>
+<p>就变成了纯虚数了。</p>
+<p>而且复指数函数基（指数部分为纯虚数）是正交完备的，但是指数函数族并不是。</p>
+<p>这一步厄米的证明需要把</p>
+<p><img src="/images/WEBRESOURCE45007b4553699869be2899c142e21beestickPicture.png"></p>
+<p>算符的矩阵形式写出来（与</p>
+<p><img src="/images/WEBRESOURCE534fce26c61859a1b98efa964bb884b5stickPicture.png"></p>
+<p>函数的导数</p>
+<p><img src="/images/WEBRESOURCEba69f6aef9bbad738d6286f348c94fe7stickPicture.png"></p>
+<p>有关），again，大家可以翻Shankar。</p>
+<p>2、如何扩展到拉普拉斯变换</p>
+<p>傅里叶变换需要函数满足绝对可积的条件，但是有的时候不能满足这个条件。拉普拉斯变换</p>
+<p><img src="/images/WEBRESOURCEd008b6d376284ebf099c3b560c7e2e3fstickPicture.png"></p>
+<p>中</p>
+<p><img src="/images/WEBRESOURCEf2fa5316afa60d57ba574d0f2d50b258stickPicture.png"></p>
+<p>的虚部与傅里叶变换一致，而实部提出来之后相当于对</p>
+<p><img src="/images/WEBRESOURCE1dc2e41a168b0c0c489fa907e036f60dstickPicture.png"></p>
+<p>附加了一个指数衰减，于是使大部分函数都能满足绝对可积的条件，从而扩展了适用范围。</p>
+<p>至此，我们惊奇地发现，</p>
+<p>所谓傅里叶变换和拉普拉斯变换，其实就是同一个函数向量，在不同基下的分量形式的变换。</p>
+<p>而我们选择指数函数基，就是因为它是导数算符的特征向量。</p>
+<p>有了这个基础，我们终于可以着手解微分方程了。</p>
+<p>微分方程的特征根解法</p>
+<p>还是原来的微分方程（注意我们现在自变量是</p>
+<p><img src="/images/WEBRESOURCEa42e814f79dbe24c16f4c439104174ecstickPicture.png"></p>
+<p>，函数是</p>
+<p><img src="/images/WEBRESOURCE4a25d802d73ea386c9dd91527be11db9stickPicture.png"></p>
+<p>）</p>
+<p>我们把它改写成与基底无关的向量形式：</p>
+<p>因为导数算符在</p>
+<p><img src="/images/WEBRESOURCE42b67c15ca9d82262dcdbee605943d48stickPicture.png"></p>
+<p>基下会变为数乘，所以我们变换到</p>
+<p><img src="/images/WEBRESOURCEc013946c23d37902238ff9553313b499stickPicture.png"></p>
+<p>基下</p>
+<p>（此步即大家熟知的傅里叶&#x2F;拉普拉斯变换解常微分方程）：</p>
+<p>此处我们用了</p>
+<p><img src="/images/WEBRESOURCE9ac5100bb83b7b6e158b83a38b3ed329stickPicture.png"></p>
+<p>基的完备性，即</p>
+<p><img src="/images/WEBRESOURCE0c2c4d0ee538752c5161714afededbc4stickPicture.png"></p>
+<p>利用特征向量的性质，即得</p>
+<p>我们要非平凡解</p>
+<p><img src="/images/WEBRESOURCEbc786a608ee48d06de4066e1d03be769stickPicture.png"></p>
+<p>，所以有方程</p>
+<p>得到两个根</p>
+<p><img src="/images/WEBRESOURCE99cfab778b139fe9f95c46eb8c31b920stickPicture.png"></p>
+<p>我们发现这些所谓特征根实际上就是解出来的特征值。</p>
+<p>接着我们用向量</p>
+<p><img src="/images/WEBRESOURCEeabd28ce3735bd3fac49ef3459f6cceastickPicture.png"></p>
+<p>把函数向量线性表出，即</p>
+<p>而我们要求的便是函数向量在</p>
+<p><img src="/images/WEBRESOURCEe34bb2ae40d86907e706892dce265c85stickPicture.png"></p>
+<p>下的分量形式</p>
+<p><img src="/images/WEBRESOURCEbbe0360cb9b7531d882d1ec1116c074estickPicture.png"></p>
+<p>（如果有重根怎么办？）</p>
+<p>至此，我们成功的用线性代数的方法解出了微分方程。</p>
+<p>我们发现，所谓微分方程的特征根其实就是微分算子的特征值。</p>
+<p>由此，微分方程中的特征根与矩阵特征值也是一致的。</p>
+<p>而傅里叶&#x2F;拉普拉斯变换，其实就是基的变换。</p>
+<p>3、从矩阵到数列</p>
+<p>本文的重头戏其实已经结束了，最后这部分比较简单。</p>
+<p>我们观察一下数列的递推式</p>
+<p><img src="/images/WEBRESOURCE07f13d76920acbbd43dfc5b405e0ee83stickPicture.png"></p>
+<p>想一下怎么才能把他变成矩阵形式。</p>
+<p>这时候我想到了在理论力学中的哈密顿方程。</p>
+<p>我们知道，理论力学中的拉格朗日方程是一个二阶方程：</p>
+<p>经过一系列变换，则可以写成两个一阶方程</p>
+<p><img src="/images/WEBRESOURCE2659a0e555fe661a2ffdac5d4ae4f8ccstickPicture.png"></p>
+<p>由此可以把</p>
+<p><img src="/images/WEBRESOURCE6fee70fd2b39f42a991b44d239e32efestickPicture.png"></p>
+<p>作为一组坐标，作出相图。其中又有</p>
+<p><img src="/images/WEBRESOURCE760c7bab6ff2ad2b6c313b7d74fa53bastickPicture.png"></p>
+<p>。</p>
+<p>一般的，微分方程理论证明，一个二阶常微分方程可以写成两个一阶常微分方程。</p>
+<p>受此启发，我开始思考能不能用</p>
+<p><img src="/images/WEBRESOURCEcc590e380ae96859053fcfde22865ce5stickPicture.png"></p>
+<p>作为整体来改写递推式：</p>
+<p>我们做的事情实际上就是把一个二阶递推式写成了两个一阶递推式。</p>
+<p>（高次同理，全部拆成一阶即可。）</p>
+<p>然后我们希望不断累乘这个矩阵，即</p>
+<p>这里又出现了一个问题，就是如何方便的计算矩阵的幂？</p>
+<p>矩阵的幂很难算，而常数的幂很容易，于是我们又想起了矩阵的特征值。</p>
+<p>我们先把矩阵的特征值求出来</p>
+<p>两根记为</p>
+<p><img src="/images/WEBRESOURCE8ad6f853fa88bf1e0cdb000567cbbffbstickPicture.png"></p>
+<p>对应的特征向量分别记为</p>
+<p><img src="/images/WEBRESOURCEc4eeef451082b7f549546bb40853007fstickPicture.png"></p>
+<p>接下来我们用特征向量将</p>
+<p><img src="/images/WEBRESOURCEdeb8cf6e3ef0b9ede8d46241425a7c9fstickPicture.png"></p>
+<p>线性表出：</p>
+<p><img src="/images/WEBRESOURCEf649c923e12a7fa3ef6d25f5cf47d4c0stickPicture.png"></p>
+<p>（有重根怎么办？）</p>
+<p>然后再乘矩阵便有：</p>
+<p>吸收系数后得</p>
+<p><img src="/images/WEBRESOURCE3153e88497497b529443239089abd542stickPicture.png"></p>
+<p>至此，我们用矩阵方法推导出了数列通项。</p>
+<p>我们发现，数列的特征值再一次被证明与矩阵的特征值是一致的。</p>
+<p>经评论区dalao提示，本段采用的方法与友矩阵（companion）的思想一致。</p>
+<hr>
+<p>四、结语</p>
+<p>以上，我们分别研究了</p>
+<ol>
+<li><p>如何从数列到微分方程，</p>
+</li>
+<li><p>如何从微分方程到矩阵，</p>
+</li>
+<li><p>如何从矩阵到数列。</p>
+</li>
+</ol>
+<p>到此刻为止，我们成功地将数列、微分方程与矩阵的特征值之间两两关联。</p>
+<p>我们惊喜地发现，确实，三者的特征值是一致的，的确是同一个特征值。</p>
+<p>Mathematics, rightly viewed, possesses not only truth, but supreme beauty.</p>
+<p>——Bertrand Russell</p>
+<hr>
+<p>Update</p>
+<p>大家可能已经注意到，经过评论区dalao提点，</p>
+<p>每个版块下我都注明了与我的想法对应的现存数学工具。</p>
+<p>很不幸，看来我还是想的太多，而书读得太少。</p>
+<p>编辑于 2020-02-29 10:44</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">蟛蜞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E6%A0%B9/">http://example.com/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E6%A0%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">蟛蜞</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/ding.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/29/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5/" title="概率论概念"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">概率论概念</div></div><div class="info-2"><div class="info-item-1">随机变量：样本空间点到实数域的一个映射（函数）； 随机变量即试验的结果：随机变量的一个点是是随机现象的一个样本点，随机变量的一个区间可						    		     以表示一个随机事件；   意义：把抽象的样本空间映射到了实数轴，便于用微积分等成熟方法对随机现象进行研究 随机现象：是概率论研究的对象，指自然界中客观存在的，结果不确定的现象； 在概率论上研究：随机事件及其概率； 样本点：随机现象产生的的基本的不可再分的事件； 样本空间：随机现象的全部样本点的集合； 随机事件：随机现象样本点的子集； 随机事件的取值：每个随机事件关联一个概率值，它表示该事件发生的可能性； 随机变量的分布函数：随机变量概率规律 分布律：离散型随机变量的各个样本点及对应的概率； 概率密度函数：连续型随机变量分布函数的导数； 随机变量函数：     离散型：	     </div></div></div></a><a class="pagination-related" href="/2024/09/25/%E6%96%87%E5%8F%B2%E7%B1%BB/%E9%98%BF%E5%BE%B7%E5%8B%92%E5%BF%83%E7%90%86%E5%AD%A6/" title="阿德勒心理学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">阿德勒心理学</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蟛蜞</div><div class="author-info-description">欢迎您的光临</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/18/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/" title="注意力机制应用">注意力机制应用</a><time datetime="2025-02-18T08:55:35.000Z" title="发表于 2025-02-18 16:55:35">2025-02-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/18/%E6%96%87%E5%8F%B2%E7%B1%BB/%E4%B8%AD%E8%A5%BF%E6%96%B9%E6%96%87%E5%8C%96%E5%9F%BA%E7%A1%80%E6%80%A7%E5%85%A8%E5%B1%80%E6%80%A7%E4%BA%A4%E6%B5%81/" title="中西方文化基础性全局性交流">中西方文化基础性全局性交流</a><time datetime="2025-01-18T07:33:45.000Z" title="发表于 2025-01-18 15:33:45">2025-01-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/10/%E6%96%87%E5%8F%B2%E7%B1%BB/%E5%9F%BA%E5%B1%82%E7%9A%84%E7%90%86%E6%80%A7%E2%80%94%E2%80%94%E3%80%8A%E5%B0%8F%E9%95%87%E5%96%A7%E5%9A%A3%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/" title="基层的理性——《小镇喧嚣》读后感">基层的理性——《小镇喧嚣》读后感</a><time datetime="2025-01-10T03:06:08.000Z" title="发表于 2025-01-10 11:06:08">2025-01-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/02/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/2024%E5%B9%B4%E6%80%BB%E7%BB%93/" title="2024年总结">2024年总结</a><time datetime="2025-01-02T07:52:47.000Z" title="发表于 2025-01-02 15:52:47">2025-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/28/%E6%9D%82%E6%96%87/%E6%97%A7%E4%BA%8B%E9%9B%863/" title="旧事集3">旧事集3</a><time datetime="2024-11-28T14:21:23.000Z" title="发表于 2024-11-28 22:21:23">2024-11-28</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 蟛蜞</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.4</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://commitment-rho.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://commitment-rho.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
