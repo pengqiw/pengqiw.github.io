@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>欠驱动机械臂运动学仿真 | 蟛蜞的互联网纪念馆</title><meta name="author" content="蟛蜞"><meta name="copyright" content="蟛蜞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="三轴机械臂建模及运动学仿真&emsp;&emsp;在开始具体的机械结构及驱动结构设计之前，有必要对机械臂进行运动学仿真来得到其运动学正解、运动学逆解和工作空间情况。 &emsp;&emsp;刚刚结束的小学期里我们对一台货真价实的六轴机械臂进行了拆解和运动学仿真，然后水完了项目报告，本以为这次的仿真在暑期的代码上稍加更改就可以了，然而——终究是我错付了。 各仿真项目的个人理解&emsp;&emsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欠驱动机械臂运动学仿真">
+<meta property="og:url" content="https://pengqiw.github.io/2021/09/16/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E6%AC%A0%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F/index.html">
+<meta property="og:site_name" content="蟛蜞的互联网纪念馆">
+<meta property="og:description" content="三轴机械臂建模及运动学仿真&emsp;&emsp;在开始具体的机械结构及驱动结构设计之前，有必要对机械臂进行运动学仿真来得到其运动学正解、运动学逆解和工作空间情况。 &emsp;&emsp;刚刚结束的小学期里我们对一台货真价实的六轴机械臂进行了拆解和运动学仿真，然后水完了项目报告，本以为这次的仿真在暑期的代码上稍加更改就可以了，然而——终究是我错付了。 各仿真项目的个人理解&emsp;&emsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pengqiw.github.io/img/ding.jpg">
+<meta property="article:published_time" content="2021-09-16T12:26:04.000Z">
+<meta property="article:modified_time" content="2025-03-06T07:56:36.329Z">
+<meta property="article:author" content="蟛蜞">
+<meta property="article:tag" content="机器人">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pengqiw.github.io/img/ding.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "欠驱动机械臂运动学仿真",
+  "url": "https://pengqiw.github.io/2021/09/16/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E6%AC%A0%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F/",
+  "image": "https://pengqiw.github.io/img/ding.jpg",
+  "datePublished": "2021-09-16T12:26:04.000Z",
+  "dateModified": "2025-03-06T07:56:36.329Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "蟛蜞",
+      "url": "https://pengqiw.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pengqiw.github.io/2021/09/16/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E6%AC%A0%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '欠驱动机械臂运动学仿真',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-list"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/categories/meme/"><i class="fa-fw fa fa-comments-o"></i><span> meme图</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蟛蜞的互联网纪念馆</span></a><a class="nav-page-title" href="/"><span class="site-name">欠驱动机械臂运动学仿真</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-list"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/categories/meme/"><i class="fa-fw fa fa-comments-o"></i><span> meme图</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">欠驱动机械臂运动学仿真</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-09-16T12:26:04.000Z" title="发表于 2021-09-16 20:26:04">2021-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-06T07:56:36.329Z" title="更新于 2025-03-06 15:56:36">2025-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="三轴机械臂建模及运动学仿真"><a href="#三轴机械臂建模及运动学仿真" class="headerlink" title="三轴机械臂建模及运动学仿真"></a>三轴机械臂建模及运动学仿真</h1><p>&emsp;&emsp;在开始具体的机械结构及驱动结构设计之前，有必要对机械臂进行运动学仿真来得到其运动学正解、运动学逆解和工作空间情况。<img src="https://i-blog.csdnimg.cn/blog_migrate/1e1a0f9e22355bb4ffc3468300cbae1b.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;刚刚结束的小学期里我们对一台货真价实的六轴机械臂进行了拆解和运动学仿真，然后<del>水</del>完了项目报告，本以为这次的仿真在暑期的代码上稍加更改就可以了，然而——终究是我错付了。</p>
+<h2 id="各仿真项目的个人理解"><a href="#各仿真项目的个人理解" class="headerlink" title="各仿真项目的个人理解"></a>各仿真项目的个人理解</h2><p>&emsp;&emsp;开始之前我需要从应用的角度来谈谈对仿真的几大块内容：正逆解求解、工作空间分析、轨迹规划的理解。首先要明确机械臂设计的总目标，即设计出一款可以<strong>按指定方案</strong>到达<strong>指定位姿</strong>的装置。<br>上述理解中指定方案和指位姿这两个要求对设计和轨迹规划的过程提出了要求，运动学建模和仿真也要考虑这些要求。</p>
+<ul>
+<li><strong>运动学正逆解</strong>：正逆解的求解在两部分会使用到，分别是最初确定DH阵列表相关参数时和轨迹规划求解时。确定DH参数的过程就是一遍遍更改参数验求解正逆解并判断当前参数能否满足可以<strong>到达指定位姿</strong>这一要求；在轨迹规划这一过程中正逆解的使用主要是逆解，即求解终点和中间点的关节角来达到不同的轨迹规划效果。</li>
+<li><strong>轨迹规划</strong>：轨迹规划的过程即实现<strong>指定运动方案</strong>的过程，作用不言自明故不在赘诉。</li>
+<li><strong>工作空间</strong>：工作空间的分析是我比较不理解，之前学习过程中以为他只是单纯画出了机器可达与不可达的分界线，用以划分工作禁入区以保护工人。直到我开始通过正逆解求解调整臂长。<br> 我发现了可以通过筛选工作空间中</li>
+</ul>
+<h2 id="三轴机械臂（欠驱动）分析难点"><a href="#三轴机械臂（欠驱动）分析难点" class="headerlink" title="三轴机械臂（欠驱动）分析难点"></a>三轴机械臂（欠驱动）分析难点</h2><p>&emsp;&emsp;三维空间具有六个自由度，分别是三个移动自由度和三个旋转自由度。六自由度以下的机械臂被称为欠驱动机械臂（<del>我没查，但应该是</del>）<br>&emsp;&emsp;如果机器人具有较少的自由度，则不能够随意指定任何位置和姿态，只能移动到期望的位置和较少关节所限定的姿态。即欠驱动机器人的工作空间中任意可达点较少，尤其是三自由度机器人，很多工作点个位姿只有一个，即一个位置的姿态只有一个。<br>&emsp;&emsp;而MATLAB所具有的RTB工具箱的逆解求解又需要输入目标点的<strong>T矩阵</strong>（同时包含位置和姿态），而我们实际需要中并不对姿态做约束也无法做到，故RTB的逆解求解程序不太可行。为找到合适的逆解求解方法我做了如下尝试：</p>
+<h3 id="更改RTB中逆解求解源码"><a href="#更改RTB中逆解求解源码" class="headerlink" title="更改RTB中逆解求解源码"></a>更改RTB中逆解求解源码</h3><p>小学期的分析本来应该是分析一下逆解求解代码的，但因为种种原因<del>主要是懒</del>，并没有进行，最后兜兜转转还是回到了原点，总之先上源码：</p>
+<ul>
+<li>第一段中mask变量为一个一行六列的矩阵，可根据实际机械臂自由度来在求解前定义前几个数字为1，其余的数字为0；</li>
+</ul>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">assert</span>(<span class="title function_">numel</span>(opt.<span class="property">mask</span>) == <span class="number">6</span>, <span class="string">&#x27;RTB:ikine:badarg&#x27;</span>, <span class="string">&#x27;Mask matrix should have 6 elements&#x27;</span>);</span><br><span class="line"><span class="title function_">assert</span>(n &gt;= <span class="title function_">numel</span>(<span class="title function_">find</span>(opt.<span class="property">mask</span>)), <span class="string">&#x27;RTB:ikine:badarg&#x27;</span>, <span class="string">&#x27;Number of robot DOF must be &gt;= the number of 1s in the mask matrix&#x27;</span>);</span><br><span class="line">W = <span class="title function_">diag</span>(opt.<span class="property">mask</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二段代码定义了求解时时如何把当前值与目标值比较来接近目标值的，核心代码是第一行的<strong>tr2delta</strong>函数。该函数也是RTB工具箱的一部分用以求解当前值到目标值的<strong>微分运动矩阵</strong>，并通过计算该矩阵的<strong>范数</strong>来衡量误差大小。当小于定义的结束误差<strong>opt.tol</strong>时结束计算；</li>
+</ul>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">e = <span class="title function_">tr2delta</span>(robot.<span class="title function_">fkine</span>(q), T);        </span><br><span class="line">% are we there yet</span><br><span class="line">       <span class="keyword">if</span> <span class="title function_">norm</span>(W*e) &lt; opt.<span class="property">tol</span></span><br><span class="line">       <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第三段代码是迭代计算的过程，是真正的核心。代码采用了课本上讲过的<strong>雅克比矩阵迭代的方法</strong>，相关理解有人已经讲过了，具体见此处：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/gpeng832/article/details/55520622">【机器人学】机器人开源项目KDL源码学习：（2）牛顿拉普森迭代法求机器人的数值解</a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line">    % 计算误差</span><br><span class="line">    <span class="title class_">Tq</span> = robot.<span class="title function_">fkine</span>(q<span class="string">&#x27;);</span></span><br><span class="line"><span class="string">    e(1:3) = transl(T - Tq);</span></span><br><span class="line"><span class="string">    Rq = t2r(Tq);</span></span><br><span class="line"><span class="string">    [th,n] = tr2angvec(Rq&#x27;</span>*<span class="title function_">t2r</span>(T));</span><br><span class="line">    <span class="title function_">e</span>(<span class="number">4</span>:<span class="number">6</span>) = th*n;</span><br><span class="line">    </span><br><span class="line">    J = <span class="title function_">jacob0</span>(robot, q);   % 计算雅克比</span><br><span class="line">    % 根据末端误差求取关节变化</span><br><span class="line">    <span class="keyword">if</span> opt.<span class="property">pinv</span>  % 雅克比伪逆法</span><br><span class="line">        dq = opt.<span class="property">alpha</span> * <span class="title function_">pinv</span>( <span class="title function_">J</span>(m,:) ) * <span class="title function_">e</span>(m);</span><br><span class="line">    <span class="keyword">else</span>         % 雅克比转置法</span><br><span class="line">        dq = <span class="title function_">J</span>(m,:)<span class="string">&#x27; * e(m);</span></span><br><span class="line"><span class="string">        dq = opt.alpha * dq;</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    % 更新关节值</span></span><br><span class="line"><span class="string">    q = q + dq&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    % 判断误差是否小于容许误差tolerance</span><br><span class="line">    nm = <span class="title function_">norm</span>(<span class="title function_">e</span>(m));</span><br><span class="line">    <span class="keyword">if</span> nm &lt;= opt.<span class="property">tol</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<p>   <img src="https://i-blog.csdnimg.cn/blog_migrate/e4c885a3df9519aa589ef9ed7af3048a.png" alt="在这里插入图片描述"></p>
+<p>   &emsp;&emsp;分析完代码后开始着手改代码，雅克比矩阵迭代部分我也只能说是一知半解，故更改的部分可以在误差比对环节。我们最后要的是空间点的位置，对其姿态并不做要求，因而想尽量减少姿态对结果的影响，故作如下修改：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">aaa=robot.fkine(q);</span><br><span class="line"> e=T-aaa;</span><br><span class="line"> e=e(:,<span class="number">4</span>);</span><br><span class="line"> e(<span class="number">4</span>:<span class="number">6</span>,:)=<span class="number">0</span>;</span><br><span class="line"> %e = tr2delta(robot.fkine(q), T);</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;将误差改为当前点与最终点位置差的范数，即只通过位置来决定误差，但经过实验后发现结果与源代码并无太大差异。改到这里其实我是挺绝望的，毕竟查资料看代码花了很长时间，但项目还得继续做下去，我也只能安慰自己：<strong>最起码看懂代码了</strong><br>另外，关于RTB的逆解求解还有一个参数列表，这里一并分享 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">% <span class="built_in">set</span> defaultparameters <span class="keyword">for</span> solution 默认参数设置</span><br><span class="line">opt.ilimit = <span class="number">500</span>; %默认迭代次数</span><br><span class="line">opt.rlimit = <span class="number">100</span>; %最大连续拒绝次数</span><br><span class="line">opt.slimit = <span class="number">100</span>; %最大尝试次数</span><br><span class="line">opt.tol = <span class="number">1e-10</span>; %默认迭代误差</span><br><span class="line">opt.lambda = <span class="number">0.1</span>; %默认步长</span><br><span class="line">opt.lambdamin = <span class="number">0</span>; %默认步长最小值</span><br><span class="line">opt.search = <span class="literal">false</span>; %默认关闭搜索初值</span><br><span class="line">opt.quiet = <span class="literal">false</span>; %保持安静，减少输出</span><br><span class="line">opt.verbose = <span class="literal">false</span>; %输出的信息详细</span><br><span class="line">opt.mask = [<span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span>]; %默认六自由度</span><br></pre></td></tr></table></figure>
+
+<h3 id="求解析解"><a href="#求解析解" class="headerlink" title="求解析解"></a>求解析解</h3><p>&emsp;&emsp;三自由度机器人的解析解表达式较为简单，可不使用矩阵变换，直接根据几何知识得出，具体如下图：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/67682af027e175236a32bc9fc3d508fe.png#pic_center" alt="解析解表达式"><br>&emsp;&emsp;但是，以我贫乏的数学知识，列出几页演算稿是解不出来这个三元非线性方程组。故此方法胎死腹中。</p>
+<h3 id="数值求解"><a href="#数值求解" class="headerlink" title="数值求解"></a>数值求解</h3><p>&emsp;&emsp;虽然上一个方法并没有让我们求出解析解，但是最后还是得到了三个关节变量的非线性方程组。MATLAB在数值求解非线性方程\组上也有一套相关算法，于是本着暴力求解的态度，我在MATLAB社区看了一些相关帖子。最后功夫不负有心人，找到了一篇二自由度机械臂拟牛顿法求其解析解的教程，链接如下：<br><a target="_blank" rel="noopener" href="https://www.ilovematlab.cn/thread-22118-1-1.html">MATLAB二自由度解析解</a><br>借鉴其思想和代码，带入上图三自由度解析解方程可以达到数值法求解解析解的代码， 包括以下两部分：</p>
+<p>数值求解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数值求解</span></span><br><span class="line">function [x,fval,exitflag]=Robot_Inverse_Solution(a,b,c)</span><br><span class="line">x=a;</span><br><span class="line">y=b;</span><br><span class="line">z=c;</span><br><span class="line">l1=<span class="number">0.18</span>;</span><br><span class="line">l2=<span class="number">0.15</span>;</span><br><span class="line">l3=<span class="number">0.03</span>;</span><br><span class="line">options=optimset(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;off&#x27;</span>,<span class="string">&#x27;MaxFunEvals&#x27;</span>,<span class="number">1000000</span>,<span class="string">&#x27;TolFun&#x27;</span>,<span class="number">1e-3</span>);</span><br><span class="line">[x,fval,exitflag]=fsolve(<span class="string">&#x27;threeJoint&#x27;</span>,[<span class="number">0</span> <span class="number">0.1</span> <span class="number">0.1</span>],options,l1,l2,l3,x,y,z);</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>非线性方程定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非线性方程定义</span></span><br><span class="line">function F=threeJoint(theta,l1,l2,l3,x,y,z)</span><br><span class="line"></span><br><span class="line">theta1=theta(<span class="number">1</span>);</span><br><span class="line">theta2=theta(<span class="number">2</span>);</span><br><span class="line">theta3=theta(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">% F1=x-l2*cos(theta2)*cos(theta1)-l3*cos(theta2+theta3)*cos(theta1);</span><br><span class="line">% F2=y-l2*cos(theta2)*sin(theta1)-l3*cos(theta2+theta3)*sin(theta1);</span><br><span class="line">% F3=z-l1-l2*sin(theta2)*-l3*sin(theta2+theta3);</span><br><span class="line"></span><br><span class="line">F=[F1,F2,F3];</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;该方法具有初值敏感性，故在求解时输入关节变量theta的<strong>兴趣区间</strong>对求解结果的准确性有很大影响，而大多数情况下我们并不能给出一个很恰当的估计值，故此方法在理论上并不太适合实际应用。<br>在具体的求解过程中也确实体现了这一点，我尝试了一组比较好求的解：   </p>
+<p><code>theta=[0，pi/3，0]；</code></p>
+<p>尽管如此，结果依然很不理想，这仍然是很失败的尝试。</p>
+<h3 id="工作空间筛选"><a href="#工作空间筛选" class="headerlink" title="工作空间筛选"></a>工作空间筛选</h3><p>&emsp;&emsp;面对接二连三的失败，我决定暂时放弃逆解，先进行工作空间分析。工作空间的分析采<strong>用蒙特卡罗法</strong>，机械臂的每个关节关节变量能够产生出N个伪随机值，即将关节变量的值按由小到大的顺序代入机械手的正运动学方程，得到末端执行器在参考坐标中的位置向量，将所得到的机械手位置向量绘制出来即为机械臂的工作空间。<br>&emsp;&emsp;在分析过程中我突然想到既然蒙特卡罗法生成了一万甚至十万个工作点，那能否通过筛选来找到合适的工作点呢？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    q1_rand = q1_s*angle + unifrnd(<span class="number">0</span>,<span class="number">1</span>,[num,<span class="number">1</span>])*(q1_end - q1_s)*angle;</span><br><span class="line">    q2_rand = q2_s*angle + unifrnd(<span class="number">0</span>,<span class="number">1</span>,[num,<span class="number">1</span>])*(q2_end - q2_s)*angle;</span><br><span class="line">    q3_rand = q3_s*angle + unifrnd(<span class="number">0</span>,<span class="number">1</span>,[num,<span class="number">1</span>])*(q3_end - q3_s)*angle;</span><br><span class="line">    q4_rand = rand(num,<span class="number">1</span>)*<span class="number">0</span>;</span><br><span class="line">    q = [q1_rand q2_rand q3_rand q4_rand];</span><br><span class="line">    fk=modrobot.fkine(q).t;%正向运动学仿真函数index=zeros(<span class="number">1</span>,<span class="number">5000</span>)</span><br><span class="line">		<span class="keyword">for</span> i=<span class="number">1</span>:<span class="number">5000</span></span><br><span class="line">   			 t=fk(<span class="number">1</span>,i);</span><br><span class="line">   			 t=transl(t)	%从SE3矩阵改为可以直接诶操作的矩阵</span><br><span class="line">   			 %%具体赛选过程</span><br><span class="line">   			 <span class="keyword">if</span> (<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">2</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>)&amp;(<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">1</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>）</span><br><span class="line">   			 end</span><br><span class="line">        	 <span class="keyword">if</span>(<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">1</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>&amp;(<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">1</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>）</span><br><span class="line">        	 end</span><br><span class="line">             <span class="keyword">if</span>(<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">3</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>&amp;(<span class="built_in">abs</span>(t(<span class="number">1</span>,<span class="number">3</span>)<span class="number">-0.01</span>)&lt;<span class="number">0.001</span>）</span><br><span class="line">               index(<span class="number">1</span>,i)=<span class="number">1</span>;</span><br><span class="line">   	         end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;该程序可以实现这一功能，并返回满足条件的一组解的index。也就是说工作空间可以提供安全区域划分也可以用于筛选合适的运动学逆解。但这一方法计算量很大，只适合最初确定机器人构型时使用，在轨迹规划时并不实用，</p>
+<h2 id="实用的解析解法"><a href="#实用的解析解法" class="headerlink" title="实用的解析解法"></a>实用的解析解法</h2><p>&emsp;&emsp;本来到此已经<del>顺利的</del>完成了最开始的任务，但blog的撰写把战线拖得很长，从八月多一直拖到了今天。也就是在今天，在张爱军老师的课上，<strong>Saeed B.Niku</strong>教授的机器人学我带来了了新的希望——<strong>解析解是可解的</strong>！<br><img src="https://img-blog.csdnimg.cn/532077eadfb54f67851196eb2dfd55a9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAUGVtZ3FpV2FuZw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+ <img src="https://i-blog.csdnimg.cn/blog_migrate/e051fd8609f399e1b569d2e3ea543176.png" width="50%">
+
+<p>&emsp;&emsp;本来还想手撸逆解来着 ，但结果如图所示，在解逆解的路上死在了正解求解的途中，这时不妨让我们打开手中的MATLAB：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">syms th1 th2 th3  l1 l2 l3 ;</span><br><span class="line">syms nx ny nz ax ay az ox oy oz px py pz;</span><br><span class="line">TT=[nx,ox,ax,px;</span><br><span class="line">    ny,oy,ay,py;</span><br><span class="line">    nz,oz,az,pz;</span><br><span class="line">    <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%坐标系绕Z轴旋转的转换矩阵Tz</span><br><span class="line">Tz1=[ <span class="built_in">cos</span>(th1) <span class="built_in">sin</span>(th1) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    -<span class="built_in">sin</span>(th1) <span class="built_in">cos</span>(th1) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span>         <span class="number">0</span>        <span class="number">1</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>]; </span><br><span class="line"></span><br><span class="line">Tz2=[ <span class="built_in">cos</span>(th2) <span class="built_in">sin</span>(th2) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    -<span class="built_in">sin</span>(th2) <span class="built_in">cos</span>(th2) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span>         <span class="number">0</span>        <span class="number">1</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>]; </span><br><span class="line"></span><br><span class="line">Tz3=[ <span class="built_in">cos</span>(th3) <span class="built_in">sin</span>(th3) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    -<span class="built_in">sin</span>(th3) <span class="built_in">cos</span>(th3) <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span>         <span class="number">0</span>        <span class="number">1</span> <span class="number">0</span>;</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>]; </span><br><span class="line">%正解</span><br><span class="line">T1=trotx(<span class="number">0</span>)*transl([<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>])*Tz1*transl([<span class="number">0</span> <span class="number">0</span> l1]);</span><br><span class="line">T2=trotx(<span class="number">90</span>)*transl([<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>])*Tz2*transl([<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>]);</span><br><span class="line">T3=trotx(<span class="number">0</span>)*transl([l2 <span class="number">0</span> <span class="number">0</span>])*Tz3*transl([<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>]);</span><br><span class="line">T4=transl([l3 <span class="number">0</span> <span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">%Paul反变换</span><br><span class="line">T=T1*T2*T3*T4</span><br><span class="line">t1=T_ink(T1)*TT</span><br><span class="line">t11= T2*T3*T4</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+<img src="https://i-blog.csdnimg.cn/blog_migrate/748f427d5c24526711c4d13fa1eaf60f.png" width="80%">
+
+<p>图为第一次Paul反变换后两侧p向量，带入p2计算后结果刚好与书中相同.</p>
+<p>![Alt](<a target="_blank" rel="noopener" href="https://i-blog.csdnimg.cn/blog_migrate/e9c70d8db7d5a0ad4cf3a3fe3751c466.png#pic_center">https://i-blog.csdnimg.cn/blog_migrate/e9c70d8db7d5a0ad4cf3a3fe3751c466.png#pic_center</a> &#x3D;200x200)<br>&emsp;&emsp;其实写到这里上文所说三自由度机械臂的难点已经不构成了，因为逆解的求解使用Paul反变换法可以较为简单的求解，甚至写到这里四轴五周等欠驱动机械臂也有了大概的想法，即除了关注两侧的p向量可以再多关注一个方向的绕轴旋转，但这都是后话了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>很简单的想法，很幼稚的尝试，也尝试了很多时间；搭建一个机械臂的想法从八月下旬开始到现在已经做好了第一步的仿真、调试了顶层的MoveIt代码、写了直流电机的PWM驱动和串口通信……写完这篇博客后就是组装和调试了，又是一大批的活计。<br>保研已经是没啥可能了，考研又还太早，反正也是闲着，干点有趣且有意义的事情吧。</p>
+<blockquote>
+<p>大三也该去收获了</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://pengqiw.github.io">蟛蜞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://pengqiw.github.io/2021/09/16/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E6%AC%A0%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F/">https://pengqiw.github.io/2021/09/16/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E6%AC%A0%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://pengqiw.github.io" target="_blank">蟛蜞的互联网纪念馆</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/">机器人</a></div><div class="post-share"><div class="social-share" data-image="/img/ding.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2021/08/06/ML/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A06%EF%BC%88%E8%AF%84%E4%BB%B7%E4%B8%8E%E8%AF%8A%E6%96%AD%EF%BC%89_new/" title="机器学习6（评价与诊断）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">机器学习6（评价与诊断）</div></div><div class="info-2"><div class="info-item-1"> 模型评价：线性回归的评价：  逻辑回归及神经网络评价  模型选择：训练集、验证集、测试集 悬着一个模型重点不是对某一组样本完全拟合，而是对同分布样本的泛化能力  训练集：计算当前模型的权重矩阵； 60 测试集：比对各个模型训练出的权重哪个更合理  20 验证集：考察测试集中得到的最优模型的泛化能力  20  模型问题： 偏差较大（欠拟合） 方差较大（过拟合）  </div></div></div></a><a class="pagination-related" href="/2021/09/25/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="概念总结——信号与系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">概念总结——信号与系统</div></div><div class="info-2"><div class="info-item-1">信号： 信号是消息的表现形式。 （消息是信号的具体内容）  系统： 由若干相互作用和相互依赖的事物组合而成的具有特定功能的整体； 稳定系统：1）以一定的速度稳定运行； 2）扰动时发生变化，扰动消除，恢复原稳定状态； 激励： 响应： 时域描述: 以时间为独立变量，能反映信号幅值随时间变化的关系。 但是，它不能揭示信号的频率结构特征，把时域描述进行 特定的变换，则可以进一步得到频域描述。 频域描述: 以频率为独立变量，能反映信号的各个频率成分的幅值...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2021/04/21/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E9%80%86%E8%A7%A3_new/" title="逆解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-21</div><div class="info-item-2">逆解</div></div><div class="info-2"><div class="info-item-1">逆解数目表： 六自由度机器人解析解实例： DH参数：  齐次变换矩阵：  表达式： </div></div></div></a><a class="pagination-related" href="/2022/01/22/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/ROS%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="ROS自定义路径规划器的原理及实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-22</div><div class="info-item-2">ROS自定义路径规划器的原理及实现</div></div><div class="info-2"><div class="info-item-1"> 虽然我还没有对象，但已不知面向了多少对象 ——沃.兹基硕德  全局规划器的理论实现上次写到宕开一笔去看move_base源码，死磕后也勉强是理解了，但是效率低效果差，属于是筋疲力尽且无效果。所以最开始如果想先看move_base的话，只需要了解一下类的继承关系和主要函数功能及执行顺序即可。 1....</div></div></div></a><a class="pagination-related" href="/2021/04/13/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/DH%E5%BB%BA%E6%A8%A1%E6%B3%95_new/" title="DH建模法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-13</div><div class="info-item-2">DH建模法</div></div><div class="info-2"><div class="info-item-1">四个参数的含义：   DH   </div></div></div></a><a class="pagination-related" href="/2021/04/18/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/ROS_TF_new/" title="ROS_TF"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-18</div><div class="info-item-2">ROS_TF</div></div><div class="info-2"><div class="info-item-1">源码：1234567891011121314151617181920#include&lt;ros/ros.h&gt;#include&lt;tf/transform_broadcaster.h&gt;int main(int argc, char** argv) &#123;    ros::init(argc, argv, &quot;tf_publisher&quot;);    ros::NodeHandle n;    ros::Rate r(100);    tf::TransformBroadcaster broadcaster;       			//对象实例化    tf::Transform transform;    transform.setOrigin(tf::Vector3(0.1, 0, 0.2));    tf::Quaternion q;    q.setRPY(0, 0, 0);    transform.setRotation(q);    while(n.ok()) &#123;       ...</div></div></div></a><a class="pagination-related" href="/2021/12/31/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/Navigation%E5%AE%9E%E8%AE%AD%E6%95%B4%E7%90%86/" title="Navigation实训整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-31</div><div class="info-item-2">Navigation实训整理</div></div><div class="info-2"><div class="info-item-1">Navigation实训整理乱七八糟的东西记了很多，放在这做个纪念吧 1....</div></div></div></a><a class="pagination-related" href="/2022/07/22/%E6%9C%AC%E7%A7%91%E8%B5%84%E6%96%99/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E7%AC%94%E8%AE%B0/%E4%BC%BA%E6%9C%8D%E7%94%B5%E6%9C%BA%E7%9F%A2%E9%87%8F%E6%8E%A7%E5%88%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BB%BF%E7%9C%9F/" title="伺服电机矢量控制原理与仿真"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-22</div><div class="info-item-2">伺服电机矢量控制原理与仿真</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蟛蜞</div><div class="author-info-description">欢迎您的光临</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E8%BD%B4%E6%9C%BA%E6%A2%B0%E8%87%82%E5%BB%BA%E6%A8%A1%E5%8F%8A%E8%BF%90%E5%8A%A8%E5%AD%A6%E4%BB%BF%E7%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">三轴机械臂建模及运动学仿真</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E4%BB%BF%E7%9C%9F%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">各仿真项目的个人理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E8%BD%B4%E6%9C%BA%E6%A2%B0%E8%87%82%EF%BC%88%E6%AC%A0%E9%A9%B1%E5%8A%A8%EF%BC%89%E5%88%86%E6%9E%90%E9%9A%BE%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">三轴机械臂（欠驱动）分析难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9RTB%E4%B8%AD%E9%80%86%E8%A7%A3%E6%B1%82%E8%A7%A3%E6%BA%90%E7%A0%81"><span class="toc-number">1.2.1.</span> <span class="toc-text">更改RTB中逆解求解源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E6%9E%90%E8%A7%A3"><span class="toc-number">1.2.2.</span> <span class="toc-text">求解析解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3"><span class="toc-number">1.2.3.</span> <span class="toc-text">数值求解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E7%AD%9B%E9%80%89"><span class="toc-number">1.2.4.</span> <span class="toc-text">工作空间筛选</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E7%9A%84%E8%A7%A3%E6%9E%90%E8%A7%A3%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">实用的解析解法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/06/%E5%88%9B%E4%B8%96%E7%BA%AA-----%E5%BB%BA%E7%AB%99%E9%87%8D%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%B0%8F%E8%AE%A1/" title="创世纪-----建站重大事件小计">创世纪-----建站重大事件小计</a><time datetime="2025-03-06T08:28:36.000Z" title="发表于 2025-03-06 16:28:36">2025-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/01/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-1/" title="漫长的冬季-1">漫长的冬季-1</a><time datetime="2025-03-01T13:00:45.000Z" title="发表于 2025-03-01 21:00:45">2025-03-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/28/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-0/" title="漫长的冬季-0">漫长的冬季-0</a><time datetime="2025-02-28T13:00:45.000Z" title="发表于 2025-02-28 21:00:45">2025-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/27/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-%E5%BC%95%E5%AD%90/" title="漫长的冬季-引子">漫长的冬季-引子</a><time datetime="2025-02-27T13:00:45.000Z" title="发表于 2025-02-27 21:00:45">2025-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/22/%E6%9E%95%E4%B8%8B%E7%9A%84%E6%97%B6%E9%97%B4/" title="枕下的时间">枕下的时间</a><time datetime="2025-02-22T14:59:15.000Z" title="发表于 2025-02-22 22:59:15">2025-02-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 蟛蜞</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.4</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://pqhez.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://pqhez.top',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script type="text/javascript" src="/js/waterfall.min.js"></script><script type="text/javascript" src="/js/imgStatus.min.js"></script><script type="text/javascript" src="/js/lately.min.js"></script><script type="text/javascript" src="/js/photo.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

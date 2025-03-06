@@ -1,0 +1,513 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>条件限制的样本生成相关文献 | 蟛蜞的互联网纪念馆</title><meta name="author" content="蟛蜞"><meta name="copyright" content="蟛蜞"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Fault Description Based Attribute Transfer for Zero-Sample Industrial Fault针对的任务： 同一系统中存在部分故障缺失，通过学习其他已有故障及其属性的关系来建立属性向量到故障样本的映射。在推理时利将新的故障案例映射到属性向量，并根据属性向量的取值进行诊断推理。  延伸为拥有同样故障和故障属性的同类型系统，对系统A的各故障样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="条件限制的样本生成相关文献">
+<meta property="og:url" content="https://pengqiw.github.io/2024/07/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE_new/index.html">
+<meta property="og:site_name" content="蟛蜞的互联网纪念馆">
+<meta property="og:description" content="一、Fault Description Based Attribute Transfer for Zero-Sample Industrial Fault针对的任务： 同一系统中存在部分故障缺失，通过学习其他已有故障及其属性的关系来建立属性向量到故障样本的映射。在推理时利将新的故障案例映射到属性向量，并根据属性向量的取值进行诊断推理。  延伸为拥有同样故障和故障属性的同类型系统，对系统A的各故障样">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pengqiw.github.io/img/ding.jpg">
+<meta property="article:published_time" content="2024-07-20T01:22:24.000Z">
+<meta property="article:modified_time" content="2025-03-06T08:05:16.067Z">
+<meta property="article:author" content="蟛蜞">
+<meta property="article:tag" content="故障诊断">
+<meta property="article:tag" content="小样本">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pengqiw.github.io/img/ding.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "条件限制的样本生成相关文献",
+  "url": "https://pengqiw.github.io/2024/07/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE_new/",
+  "image": "https://pengqiw.github.io/img/ding.jpg",
+  "datePublished": "2024-07-20T01:22:24.000Z",
+  "dateModified": "2025-03-06T08:05:16.067Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "蟛蜞",
+      "url": "https://pengqiw.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pengqiw.github.io/2024/07/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE_new/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '条件限制的样本生成相关文献',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-list"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/categories/meme/"><i class="fa-fw fa fa-comments-o"></i><span> meme图</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蟛蜞的互联网纪念馆</span></a><a class="nav-page-title" href="/"><span class="site-name">条件限制的样本生成相关文献</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-list"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/categories/meme/"><i class="fa-fw fa fa-comments-o"></i><span> meme图</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">条件限制的样本生成相关文献</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-20T01:22:24.000Z" title="发表于 2024-07-20 09:22:24">2024-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-06T08:05:16.067Z" title="更新于 2025-03-06 16:05:16">2025-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一、Fault-Description-Based-Attribute-Transfer-for-Zero-Sample-Industrial-Fault"><a href="#一、Fault-Description-Based-Attribute-Transfer-for-Zero-Sample-Industrial-Fault" class="headerlink" title="一、Fault Description Based Attribute Transfer for Zero-Sample Industrial Fault"></a>一、Fault Description Based Attribute Transfer for Zero-Sample Industrial Fault</h2><h3 id="针对的任务："><a href="#针对的任务：" class="headerlink" title="针对的任务："></a>针对的任务：</h3><ul>
+<li><p>同一系统中存在部分故障缺失，通过学习其他已有故障及其属性的关系来建立属性向量到故障样本的映射。在推理时利将新的故障案例映射到属性向量，并根据属性向量的取值进行诊断推理。</p>
+</li>
+<li><p>延伸为拥有同样故障和故障属性的同类型系统，对系统A的各故障样本进行学习，在系统B上进行推理；</p>
+</li>
+</ul>
+<h3 id="当前问题："><a href="#当前问题：" class="headerlink" title="当前问题："></a>当前问题：</h3><ul>
+<li><p>数据驱动的方法对各健康状态样本数量都有比较高的要求；</p>
+</li>
+<li><p>生产过程中较难获取故障状态数据</p>
+</li>
+</ul>
+<h3 id="现有研究成果："><a href="#现有研究成果：" class="headerlink" title="现有研究成果："></a>现有研究成果：</h3><ul>
+<li><p>深度迁移学习，存在问题：对于深度迁移学习，在训练领域已经很好地准备了相同类型的故障，虽然目标域中没有对故障样本的需求</p>
+</li>
+<li><p>故障树，存在问题：需要对系统中基础故障的发生频率有较为详细的记录</p>
+</li>
+<li><p>零样本学习在图像领域有成功应用，分为两类：直接属性预测和间接属性预测，存在问题：需要更强有力、更适合的属性来应用于故障诊断领域；</p>
+</li>
+</ul>
+<h3 id="对故障的描述："><a href="#对故障的描述：" class="headerlink" title="对故障的描述："></a>对故障的描述：</h3><ul>
+<li><p>故障的影响；</p>
+</li>
+<li><p>故障的位置；</p>
+</li>
+<li><p>故障的原因；</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEa05c0c07ad23b6cdff3e8054b014e629image.png"></p>
+<h3 id="属性的描述方法："><a href="#属性的描述方法：" class="headerlink" title="属性的描述方法："></a>属性的描述方法：</h3><ul>
+<li><p>共有C种不同的属性，因此每种故障的属性向量为一个C维向量，当有某种属性时该位置值为1，其他位置的值为0；</p>
+</li>
+<li><p>使用时将属性向量与标签向量融合，使用监督学习方法从训练样本提取出与融合向量对应的特征**（条件限制特征提取）**</p>
+</li>
+<li><p>特征与属性对应关系学习，通过监督学习方法学习对应关系，完成从特征向量到属性向量的映射；</p>
+</li>
+<li><p>基于属性向量进行诊断推理</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEf19bec773774dda1f5ea572fb4f6ad62image.png"></p>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCE9ae0670db005d91e1c919fedc29ea5d6image.png"></p>
+<p>知识形式：<strong>故障征兆</strong>组成的one-hot属性向量</p>
+<p>知识利用方式：特征映射到属性向量，基于属性向量进行分类</p>
+<h3 id="借鉴之处："><a href="#借鉴之处：" class="headerlink" title="借鉴之处："></a>借鉴之处：</h3><ul>
+<li><p>建立特征和属性向量之间的映射关系；</p>
+</li>
+<li><p>在实验数据不慎完美时尽量扬长避短，重点介绍较好的指标，对不好的指标进行补充解释甚至补充实验，</p>
+</li>
+<li><p>在没有同类型方法时对其他领域方法进行适当修改或对本领域其他方法进行一些条件限制，核心要点是尽量控制单一变量；</p>
+</li>
+</ul>
+<h3 id="不足和改进方向："><a href="#不足和改进方向：" class="headerlink" title="不足和改进方向："></a>不足和改进方向：</h3><ul>
+<li><p>one-hot向量没有充分利用故障描述的语义信息，可以改用词向量嵌入；</p>
+</li>
+<li><p>直接用于分类有些过于粗暴，可以用更好的方式利用知识；</p>
+</li>
+</ul>
+<h2 id="二、Hybrid-attribute-conditional-adversarial-denoising-autoencoder-for-zero-shot-classification-of-mechanical-intelligent-fault-diagnosis"><a href="#二、Hybrid-attribute-conditional-adversarial-denoising-autoencoder-for-zero-shot-classification-of-mechanical-intelligent-fault-diagnosis" class="headerlink" title="二、Hybrid attribute conditional adversarial denoising autoencoder for zero-shot classification of mechanical intelligent fault diagnosis"></a><strong>二、Hybrid attribute conditional adversarial denoising autoencoder for zero-shot classification of mechanical intelligent fault diagnosis</strong></h2><p>与第一种方法应用场景相似，但是所用知识（故障描述）、知识的表示形式（SA和NSA结合）和知识的利用方法（与潜变量拼接）与第一种方法不同。其所提出VAE和故障描述利用的方法有较高的借鉴意义。</p>
+<h3 id="当前问题：-1"><a href="#当前问题：-1" class="headerlink" title="当前问题："></a>当前问题：</h3><p>现有的数据驱动的诊断·方法包括无监督和半监督方法均需要<strong>充足的</strong>的数据；</p>
+<h3 id="现有研究成果：-1"><a href="#现有研究成果：-1" class="headerlink" title="现有研究成果："></a>现有研究成果：</h3><ul>
+<li><p>小样本诊断模型，存在问题：真实情况下，某台具体设备往往只有健康状态数据，甚至有些恶性事故不能被观测到，不满足小样本的要求；</p>
+</li>
+<li><p>零样本学习在分类问题上取得一些成功的应用；</p>
+</li>
+<li><p>作为零样本学习的中间件，SA（语义属性）相关的研究的发展也大力推动了零样本学习的进步和发展；</p>
+</li>
+<li><p>在各类方法中，<strong>特征生成模型</strong>可以显著提高分类任务的效果，生成模型使用方法主要为VAE系列和GAN系列</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEfeb7226a837c0f7450d159a7668490d2image.png"></p>
+<h3 id="所提方法："><a href="#所提方法：" class="headerlink" title="所提方法："></a>所提方法：</h3><ul>
+<li><p>使用AAE的架构，在DAE中加入Discriminator，控制因变量的分布；</p>
+</li>
+<li><p>在潜变量层拼接混合属性（语义和非语义属性）向量，共同作为生成器的输入</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEd2a6c5d9bd90c17e031f164a56cd2c9cimage.png"></p>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEa10b10fae76574b71372657e814661ffimage.png"></p>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCE7d63c8fd581f756b5978d1ff2ab77edeimage.png"></p>
+<h3 id="语义属性选择标准"><a href="#语义属性选择标准" class="headerlink" title="语义属性选择标准"></a>语义属性选择标准</h3><ul>
+<li><p>包含足够区分于其他类别的信息；</p>
+</li>
+<li><p>可以从原始信息中观测到；</p>
+</li>
+<li><p>能通过这些属性推断出该类别；</p>
+</li>
+</ul>
+<h3 id="知识形式："><a href="#知识形式：" class="headerlink" title="知识形式："></a>知识形式：</h3><ul>
+<li><p>语义属性：故障类型、故障程度、转频和负载等<strong>故障描述</strong>映射到[0,1]区间；</p>
+</li>
+<li><p>非语义属性：CNN特征，实验结果表明非语义属性中包含信号时域和频域特征和其他信号典型特征</p>
+</li>
+</ul>
+<h3 id="借鉴之处"><a href="#借鉴之处" class="headerlink" title="借鉴之处"></a>借鉴之处</h3><ul>
+<li><p>属性向量和隐变量拼接作为生成模型的输入；</p>
+</li>
+<li><p><strong>语义属性和非语义属性</strong>共同作为限制条件；</p>
+</li>
+<li><p>其中语义语义属性为故障描述，非语义属性可以为信号的数字特征</p>
+</li>
+<li><p>直接将健康状态样本作为VAE的输入使用属性向量作为限制条件时是否会比GAN有更好的效果；</p>
+</li>
+</ul>
+<h3 id="不足之处："><a href="#不足之处：" class="headerlink" title="不足之处："></a>不足之处：</h3><ul>
+<li><p>直接用CNN提取的特征作为非语义属性是否有充足的合理性？</p>
+</li>
+<li><p>组件较多，推理过程较为复杂</p>
+</li>
+</ul>
+<h2 id="三、Imbalanced-sample-fault-diagnosis-of-rotating-machinery-using-conditional-variational-auto-encoder-generative-adversarial-network"><a href="#三、Imbalanced-sample-fault-diagnosis-of-rotating-machinery-using-conditional-variational-auto-encoder-generative-adversarial-network" class="headerlink" title="三、Imbalanced sample fault diagnosis of rotating machinery using conditional variational auto-encoder generative adversarial network"></a>三、Imbalanced sample fault diagnosis of rotating machinery using conditional variational auto-encoder generative adversarial network</h2><p>可用于该设备其他工况已有部分数据的条件下进行增强</p>
+<h3 id="当前问题：-2"><a href="#当前问题：-2" class="headerlink" title="当前问题："></a><strong>当前问题：</strong></h3><ul>
+<li>风力发电设备齿轮箱工作在变载荷和变转速工况下，工况较多。每种工况都有大量正常状态监测数据，但是故障数据难以覆盖所有工况。</li>
+</ul>
+<h3 id="现有研究"><a href="#现有研究" class="headerlink" title="现有研究"></a>现有研究</h3><ul>
+<li><p>基于数据的方法，利用SMOTE等方法生成数据量较少的类别的样本</p>
+<ul>
+<li><p>SMOTE在“非凸”故障样品空间和工作条件变化较大的情况下，可能会产生不良样品或无效样品。</p>
+</li>
+<li><p>现有的分类网络降低了扩展数据集中的分类性能。</p>
+</li>
+<li><p>当少数类样本与多数类样本之间的不平衡样本比例过大时，改进算法的效果会变小。</p>
+</li>
+</ul>
+</li>
+<li><p>基于算法的方法，成本敏感的集成学习方法</p>
+</li>
+<li><p>GAN模型生成故障样本，上述文献中涉及的样本生成方法可能会仅使用均方来评估生成样本和原始样本的误差来生成噪声样本且在训练过程中很难收敛，导致生成样本与真实样本差别很大</p>
+</li>
+</ul>
+<h3 id="所提方法"><a href="#所提方法" class="headerlink" title="所提方法"></a>所提方法</h3><ul>
+<li><p>以cVAE为骨架，cVAE的Decoder作为cGAN的Generator。同时，在Discrininator中引入<strong>分类误差</strong>；</p>
+</li>
+<li><p>与上一篇均使用了AE结构和GAN，区别在于上篇文章中GAN用于判别编码器得到的潜变量是否为正态分布，而本文是直接使用VAE，GAN的使用目的是判别VAE的生成样本与真实样本的差异，丰富损失函数增强训练能力。同时本文增判别器处加了分类误差和更广泛的c的使用（编码器输入、潜变量拼接输入生成器）</p>
+</li>
+<li><p>当生成对抗学习到纳什均衡后可以利用生成器生成样本数较少的类别的样本，补充样本后再训练分类器以取得较好地分类效果；</p>
+</li>
+<li></li>
+</ul>
+<h3 id="知识运用方法"><a href="#知识运用方法" class="headerlink" title="知识运用方法"></a>知识运用方法</h3><ul>
+<li><p>所用先验知识为故障类别标签，该类别为包含了工况（转速、工作载荷）的类别标签；</p>
+</li>
+<li><p>在编码器输入、生成器输入、判别器真实样本处均拼接该标签；</p>
+</li>
+</ul>
+<h3 id="借鉴之处-1"><a href="#借鉴之处-1" class="headerlink" title="借鉴之处"></a>借鉴之处</h3><ul>
+<li><p>cVAE+对抗学习+分类误差的模式很好，但是对先验知识的运用简单且粗暴；</p>
+</li>
+<li><p>模型介绍部分由部分到整体，例如先模型结构再模型训练最后是整体诊断流程</p>
+</li>
+<li><p>为排除深度学习随机性和训练样本选择引起的影响，可设计多组实验选择并绘制和分析误差棒；</p>
+</li>
+<li><p>对生成样本的评价可以使用PCA等降维方法，绘制各个类别的聚类散点图；</p>
+</li>
+<li><p>其他方法不方便直接比较时可以进行相应的改造（eg.对比其他生成模型时可以为其增加分类器）</p>
+</li>
+<li><p>当所提方法有多种用途时（例如样本不均衡和部分工况样本缺失两种应用场景），可以分两个案例写；</p>
+</li>
+</ul>
+<h2 id="四、Improved-adversarial-learning-for-fault-feature-generation-of-wind-turbine-gearbox"><a href="#四、Improved-adversarial-learning-for-fault-feature-generation-of-wind-turbine-gearbox" class="headerlink" title="四、Improved adversarial learning for fault feature generation of wind turbine gearbox"></a>四、Improved adversarial learning for fault feature generation of wind turbine gearbox</h2><h3 id="当前问题"><a href="#当前问题" class="headerlink" title="当前问题"></a><strong>当前问题</strong></h3><ul>
+<li><p>风机应用广泛，工作环境恶劣容易发生各类故障，且一旦故障发生会导致经济损失并威胁人员安全；</p>
+</li>
+<li><p>现有<strong>基于机器学习</strong>的故障诊断方法取的较好成果，但都需要大量样本；</p>
+</li>
+</ul>
+<h3 id="现有研究-1"><a href="#现有研究-1" class="headerlink" title="现有研究"></a>现有研究</h3><ul>
+<li><p>降采样（under-sampling）、过采样（oversampling）和Smote等方法进行数据增强。但这些方法存在在如下问题：</p>
+<ul>
+<li><p>在紧邻选择中存在一定的盲目性（这一点不理解）</p>
+</li>
+<li><p>处理类别样本不均的样本时效果较差，容易出现分布边缘化问题</p>
+</li>
+</ul>
+</li>
+<li><p>相较于其他方法，GAN能生成更逼真、更清晰的样本，在故障诊断领域也有较多应用，但GAN仍有如下缺点</p>
+<ul>
+<li><p>对抗训练过程容易发生模式崩塌，训练较为困难；</p>
+</li>
+<li><p>生成器选择困难</p>
+</li>
+<li><p>生成样本缺乏多样性；</p>
+</li>
+<li><p>GAN是一种无监督学习方法，无法生成特定的类别</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="所提方法-1"><a href="#所提方法-1" class="headerlink" title="所提方法"></a><strong>所提方法</strong></h3><ul>
+<li><p>使用小波包变换提取出的特征作为生成的对象；</p>
+</li>
+<li><p>使用c-GAN来生成不同类型的故障样本，其中GAN使用Wasserstrin距离；</p>
+</li>
+<li><p>基于生成的故障状态样本训练随机森林算法进行作为诊断模型；</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEdfab428fbda7e4e911b6f3c01ceb4ad1image.png"></p>
+<p>c-GAN的条件仅仅为故障类型，因此只能适用于样本增强</p>
+<h2 id="五、A-case-study-of-conditional-deep-convolutional-generative-adversarial-networks-in-machine-fault-diagnosis"><a href="#五、A-case-study-of-conditional-deep-convolutional-generative-adversarial-networks-in-machine-fault-diagnosis" class="headerlink" title="五、A case study of conditional deep convolutional generative adversarial networks in machine fault diagnosis"></a>五、A case study of conditional deep convolutional generative adversarial networks in machine fault diagnosis</h2><h3 id="研究背景："><a href="#研究背景：" class="headerlink" title="研究背景："></a>研究背景：</h3><p>在生产过程中，为及时发现和处理故障部件往往会导致较为严重的后果，因此开展故障诊断研究势在必行。</p>
+<h3 id="现有研究-2"><a href="#现有研究-2" class="headerlink" title="现有研究"></a><strong>现有研究</strong></h3><ul>
+<li><p>传统故障诊断方法通过信号处理和特征提取（时域、频域、时频域）方法从原始监测信号中采集有效特征进行分析来实现，但是这一方法过度依赖专家知识；</p>
+</li>
+<li><p>传统机器学习方法，也需要大量的先验知识指导特征提取，此外由于收集的信号可能由来自多个组件的振动组成，因此很难从复杂的机械中提取代表性特征</p>
+</li>
+<li><p>随着计算机科学、数据科学的发展和各类传感器的大量部署，“大数据科学”开始兴起，为了进行准确高效的故障诊断，包括深度学习在内的大数据方法也被应用于故障诊断领域。但是这些方法都建立在各个类别的样本数量平且充足衡的基础上。在现实中，很难获得足够的故障样本，因为在实际制造环境中，正常状态数据比故障状态数据更普遍</p>
+</li>
+<li><p>传统的解决样本不均问题如过采样、集成学习等采样方法无法充分挖掘数据信息且数据生成方式倾向于线性；</p>
+</li>
+<li><p>GAN生成能力强且属于无监督学习，不需要样本标注</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEba097007f633ba38d9f6930f97f46d4cimage.png"></p>
+<h3 id="方法介绍"><a href="#方法介绍" class="headerlink" title="方法介绍"></a>方法介绍</h3><ul>
+<li><p>使用c-DCGAN作为样本生成模型，直接生成时域样本，样本长度为500；</p>
+</li>
+<li><p>在c-DCGAN中加入BN层，避免不良的初始化效果，同时保持梯度传播到每一层，并防止生成器收敛到同一点</p>
+</li>
+<li><p>在生成器的输出层中，Tanh函数作为激活函数;在其余层中，ReLU 函数用作激活函数。在判别器的输入层中，使用Leaky ReLU函数作为激活函数;Sigmoid 函数用作输出层中的激活函数。</p>
+</li>
+<li><p>生成器和鉴别器采用不同的学习率</p>
+</li>
+<li><p>为了防止过拟合，加入Dropout和Weight Decay</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCE928435b4af44e5139038593c3c549c60image.png"></p>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCEd7d09342fef41b47a6475a708beab7eeimage.png"></p>
+<h3 id="借鉴之处-2"><a href="#借鉴之处-2" class="headerlink" title="借鉴之处"></a>借鉴之处</h3><ul>
+<li><p>介绍方法时需要划分各个环节，界定好各环节的输入和输出，将输入输出的映射以合适的公式表示；</p>
+</li>
+<li><p>改文章创新点较为薄弱，神经网络的理论基础部分写的较为详细，神经网络应用在故障诊断部分也较为详细（但公式使用较为混乱）有一定参考价值；</p>
+</li>
+</ul>
+<h2 id="六、The-Multiclass-Fault-Diagnosis-of-Wind-Turbine-Bearing-Based-on-Multisource-Signal-Fusion-and-Deep-Learning-Generative-Model"><a href="#六、The-Multiclass-Fault-Diagnosis-of-Wind-Turbine-Bearing-Based-on-Multisource-Signal-Fusion-and-Deep-Learning-Generative-Model" class="headerlink" title="六、The Multiclass Fault Diagnosis of Wind Turbine Bearing Based on Multisource Signal Fusion and Deep Learning Generative Model"></a>六、The Multiclass Fault Diagnosis of Wind Turbine Bearing Based on Multisource Signal Fusion and Deep Learning Generative Model</h2><h3 id="研究背景"><a href="#研究背景" class="headerlink" title="研究背景"></a>研究背景</h3><p>风电领域需要更高效、准确的故障诊断方法</p>
+<h3 id="现有研究-3"><a href="#现有研究-3" class="headerlink" title="现有研究"></a>现有研究</h3><ul>
+<li><p>传统故障诊断的流程：信号采集、信号处理、特征提取、降维和分类，传统的故障诊断研究需要降噪、滤波、特征提取等复杂过程。该过程依赖于专业的背景知识，消耗了巨大的人力，提取的特征的好坏直接影响故障诊断的效果，在面对复杂条件下的轴承故障诊断时，手动设计特征的难度大大增加</p>
+</li>
+<li><p>通过使用大量数据进行训练，深度学习诊断方法实现端到端的诊断智能诊断方法</p>
+</li>
+<li><p>在实际运行中，一个部件存在多个可能的故障位置，在故障诊断中常采用多传感器监测多个位置的故障。当前大部分深度学习故障诊断方法基于一个测点的监测数据来进行训练，没有获有效利用多传感器采集到的故障信息；</p>
+</li>
+</ul>
+<h3 id="方法介绍："><a href="#方法介绍：" class="headerlink" title="方法介绍："></a>方法介绍：</h3><ul>
+<li><p>转子旋转一周传感器采集411个点，选取784个点，进行归一化并变形为28*28，使用2D小波变换将融合信号转换为2D的特征图</p>
+</li>
+<li><p>使用CVAE-GAN扩充故障状态的监测数据</p>
+</li>
+<li><p>使用CNN作为诊断模型进行故障诊断</p>
+</li>
+</ul>
+<h2 id="七、Generating-HSR-Bogie-Vibration-Signals-via-Pulse-Voltage-Guided-Conditional-Diffusion-Model（未完成阅读）"><a href="#七、Generating-HSR-Bogie-Vibration-Signals-via-Pulse-Voltage-Guided-Conditional-Diffusion-Model（未完成阅读）" class="headerlink" title="七、Generating HSR Bogie Vibration Signals via Pulse Voltage-Guided Conditional Diffusion Model（未完成阅读）"></a>七、Generating HSR Bogie Vibration Signals via Pulse Voltage-Guided Conditional Diffusion Model（未完成阅读）</h2><h3 id="研究背景-1"><a href="#研究背景-1" class="headerlink" title="研究背景"></a>研究背景</h3><ul>
+<li><p>振动信号中包含了机械部件间复杂的相互作用，提供了观察内部机构和外部激励相互作用的整体视角。但是，利用复杂振动信号需要先进的分析技术，这些能这确保精确的数据对齐和不同数据类型的无缝集成。</p>
+</li>
+<li><p>必须将不同的操作参数与特定的机械行为相关联存在较大难度，传统方法通过视频分析将振动与故障模式对应起来，它们的功效受到某些条件的限制，并且它们往往无法跟踪随着操作场景的变化而演变的故障特征</p>
+</li>
+<li><p>最近研究的激增强调了数据驱动的振动信号分析方法，重点关注机器学习和深度学习范式，这些方法直接从测量中自动提取潜在特征，以评估健康状况。但是，这些方法在高铁系统中发现的实际可变条件下存在一定的泛化挑战。</p>
+</li>
+</ul>
+<h3 id="研究基础"><a href="#研究基础" class="headerlink" title="研究基础"></a>研究基础</h3><ul>
+<li><p>通过学习和模拟训练数据的统计属性，可以生成与真实数据集相似的新数据，通过模拟各种正常和异常条件下的设备行为来提高诊断性能。但是，GAN训练过程容易发生模式崩溃和不稳定的训练。此外，由于GANs是隐式的，这些方法在整合多模态信息方面仍有困难，限制了它们在更复杂和各种操作条件下的适用性（如时变工况）</p>
+</li>
+<li><p>扩散模型（DMs）已经成为一个强大而有前途的新型生成框架，它可以实现比GAN更好的生成质量和稳定性。</p>
+</li>
+<li><p>DMs在文字生产图像和文本图像特征表示匹配上的取得了很成功的应用，后续工作进一步说明使用条件提示引导可以实现高质量的图像生成并强调了扩散模型在描述下生成更准确的图像（如文本）方面的可控性和有效性的增强。</p>
+</li>
+</ul>
+<h2 id="八、Auxiliary-information-guided-industrial-data-augmentation-for-any-shot-fault-learning-and-diagnosis"><a href="#八、Auxiliary-information-guided-industrial-data-augmentation-for-any-shot-fault-learning-and-diagnosis" class="headerlink" title="八、Auxiliary information guided industrial data augmentation for any-shot fault learning and diagnosis"></a>八、Auxiliary information guided industrial data augmentation for any-shot fault learning and diagnosis</h2><h3 id="研究背景：-1"><a href="#研究背景：-1" class="headerlink" title="研究背景："></a>研究背景：</h3><p>工业过程分析中对多种故障进行诊断可以视作一种机器学习的分类问题，面临小样本和零样本等极端情况下如何构建训练模型的问题。</p>
+<h3 id="现有研究-4"><a href="#现有研究-4" class="headerlink" title="现有研究"></a><strong>现有研究</strong></h3><ul>
+<li><p>当前解决故障诊断任务中小样本和零样本问题的方法有两种：基于算法和基于数据。</p>
+</li>
+<li><p>基于算法的方法通过能在少量样本下进行训练的分类器来实现，常见方法为半监督学习、迁移学习。</p>
+</li>
+<li><p>基于数据的方法通过数据方法首先生成虚拟样本以增强数据集，然后使用具有丰富样本的增强数据集来训练传统的分类器。常用方法包括Over-sampling、和基于深度学习的生成模型。</p>
+</li>
+<li><p>GAN作为一种具有卓越的能力，可以为其他不同领域的数据生成精确和多样化的样本的模型，在各领域得到广泛应用。当这些方法只适用于解决小样本问题，无法处理零样本问题，同时在样本数极少（10个）的情况下也难以取得较好效果。</p>
+</li>
+<li><p>当前方法无法在极少样本和零样本问题上取得很好表现的原因是：这些模型的构建和训练过程仅基于数据集本身，这限制了模型在训练集之外引入<strong>外部辅助信息</strong>。</p>
+</li>
+</ul>
+<h3 id="方法介绍-1"><a href="#方法介绍-1" class="headerlink" title="方法介绍"></a>方法介绍</h3><ul>
+<li><p>we start from the perspective of synthesizing data, and mainly focus on introducing the extrinsic auxiliary information of all fault for guiding the generative networks, for the purpose of solving the any-shot problem in industrial fault diagnosis, especially the zero-shot problem, which is seldom concerned before in the industrial field（本文从综合数据的角度出发，主要侧重于引入所有故障的外在辅助信息，以指导生成网络，以解决工业故障诊断中的任意触发问题，特别是工业领域以前很少关注的零触发问题）</p>
+</li>
+<li><p>该方法利用GAN作为生成模型，通过构造属性空间引入故障属性的外在辅助信息。通过构建故障属性到相应样本的映射关系，GAN的生成器可以合成所有故障的样本，包括训练集中不存在的故障。通过这些虚拟样本，增强数据集用于训练分类器，分类器可以访问原始序列集之外的故障诊断能力。这种使用故障属性处理任意触发问题的生成对抗模型称为 FAGAN。</p>
+</li>
+<li><p>首先对数据集进行特征提取和降维处理，常用方法包括LDA、PCA和AE，然后进行数据归一化；接着在属性向量和辅助函数的指导下训练FAGAN，并基于训练好的生成模型生成可见和不可见类的样本用以训练诊断模型</p>
+</li>
+<li><p>FAGAN的判别器有两个输出层，一个做真伪二分类，另一个判断输入样本来自哪个类别的多分类</p>
+</li>
+</ul>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCE37e3f1fc2da75fafe98e9193be600677image.png"></p>
+<p><img src="https://blogpic-pq.oss-cn-beijing.aliyuncs.com/img/WEBRESOURCE2c02158bcb96939bc35e4332d6b3653aimage.png"></p>
+<h3 id="借鉴之处-3"><a href="#借鉴之处-3" class="headerlink" title="借鉴之处"></a>借鉴之处</h3><ul>
+<li>对方法的描述尤其是英语描述很准确恰当，可以作为参照，同时对零样本和广义零样本学习有一个比较好的背景介绍，也可以借鉴。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://pengqiw.github.io">蟛蜞</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://pengqiw.github.io/2024/07/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE_new/">https://pengqiw.github.io/2024/07/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE_new/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://pengqiw.github.io" target="_blank">蟛蜞的互联网纪念馆</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/">故障诊断</a><a class="post-meta__tags" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/">小样本</a></div><div class="post-share"><div class="social-share" data-image="/img/ding.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/12/%E6%96%87%E5%8F%B2%E7%B1%BB/%E6%9D%83%E5%8A%9B%E4%B8%8E%E8%B4%A7%E5%B8%81_new/" title="权力与货币"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">权力与货币</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E7%88%B8%E7%88%B8%E5%8E%BB%E5%93%AA%E5%84%BF/" title="爸爸去哪儿"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">爸爸去哪儿</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/04/12/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/A%20review%20of%20the%20application%20of%20deep%20learning%20in%20intelligent%20fault%20diagnosis%20of_new/" title="A review of the application of deep learning in intelligent fault diagnosis of"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-12</div><div class="info-item-2">A review of the application of deep learning in intelligent fault diagnosis of</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/2023/09/19/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/A%20zero-shot%20fault%20semantics%20learning%20model%20for%20compound%20fault%20diagnosis_new/" title="A zero-shot fault semantics learning model for compound fault diagnosis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-19</div><div class="info-item-2">A zero-shot fault semantics learning model for compound fault diagnosis</div></div><div class="info-2"><div class="info-item-1">A collaborative central domain adaptation approach with multi-order graph embedding for bearing fault diagnosis under few-shot samples  A zero-shot fault semantics learning model for compound fault diagnosis  A zero-shot fault semantics learning model for compound fault diagnosis  Data augmentation strategy for power inverter fault diagnosis based on wasserstein distance and auxiliary classification generative adversarial network  Domain knowledge-informed synthetic fault sample generation...</div></div></div></a><a class="pagination-related" href="/2023/08/15/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/Imbalanced%20Time%20Series%20Classification%20for%20Flight%20Data%20Analyzing%20with%20Nonlinear%20G_new/" title="Imbalanced Time Series Classification for Flight Data Analyzing with Nonlinear G"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-15</div><div class="info-item-2">Imbalanced Time Series Classification for Flight Data Analyzing with Nonlinear G</div></div><div class="info-2"><div class="info-item-1">为正常状态下的多元时间序列建立格兰杰演过关系，提出了一个针对不平衡多元时间序列的神经网络分类模型 引言对飞行异常状态进行检测本质上是一个时间序列分类问题，即根据已有的完成标注的时间序列样本来训练模型，训练好的模型可以预测一个新的时间序列的标签。在这一领域现有的研究存在以下局限：  假设训练样本时均衡的，即故障和健康状态样本量不会差别很大；  缺乏可解释性   文章研究的对象为不平衡样本的异常状态诊断，方法为从健康状态的信息中来获取小样本类别（故障类别）的模式。j具体方式为学习每种类别的格兰杰因果图，这种方式能体现出不同类别的内在特征，从而达到区别彼此的效果。同时，这种方式也有很好的可解释性。  This research focuses on imbalanced time series classification on full flight data. Specifically, we aim atwe aim at handling the situation where there is one major class and a few minor...</div></div></div></a><a class="pagination-related" href="/2023/04/20/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%92%8C%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%A0%B7%E6%9C%AC_new/" title="小样本和不平衡样本方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-20</div><div class="info-item-2">小样本和不平衡样本方法</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/2023/04/13/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%8F%91%E5%B1%95%E5%8F%B2_new/" title="故障诊断发展史"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-13</div><div class="info-item-2">故障诊断发展史</div></div><div class="info-2"><div class="info-item-1">各种算法使用阶段  机器学习：建立了收工提取的特征与健康状态的联系 深度学习：抽特征与分类一体 机器学习阶段 人工特征提取 特征提取：可以表达设备健康状况的信息  时域：均值、标准差、幅值根、均方根、峰峰值（维度特征）；波形指标、偏度、峰度、峰值指标、裕度指标、脉冲指标（无维度）；振动信号在故障诊断中常用的指标总结 - 知乎 (zhihu.com)  频域：平均频率、中心频率、均方根频率、频率标准差  时频特征：能量熵（小波、小波包、EMD）  特征筛选：提取出的特征可能会增大计算量甚至造成维度灾难特征选择方法全面总结 - 知乎 (zhihu.com)  基于滤波器：滤波器与分类过程独立  基于包装：关注特征筛选和分类器之间的联系；  基于嵌入：将特征筛选集成到分类器中   健康状态识别 专家系统  五个组成部分  四种推理引擎：规则、模糊逻辑、神经网络、案例  缺点：太关注专家知识、不能自学习     人工神经网络（MLP）    径向基：径向基(Radial Basis...</div></div></div></a><a class="pagination-related" href="/2024/02/01/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%BA%E6%96%87/%E8%AF%AD%E4%B9%89%E8%A1%A5%E5%85%85%E7%9A%84%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/" title="语义补充小样本的故障诊断"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-01</div><div class="info-item-2">语义补充小样本的故障诊断</div></div><div class="info-2"><div class="info-item-1">Semantic-Consistent Embedding for Zero-Shot Fault Diagnosis研究背景近年来，监督学习方法在故障诊断中得到广泛应用，但这类方法需要待测设备的大量各健康状态监测数据，这在现实中几乎不可能实现 研究基础 迁移学习方法，需要源域和目标域的数据相关联，且仍旧需要目标设备各健康状态都有一定的数据进行迁移；  开集学习  零样本学习，在训练时不需要目标域有可用样本，且可见类和未可见类的集合可以是完全不相交的。  DAP：为每个类提供唯一的人类指定描述，以构建语义知识库。类级别的描述由语义属性组成，每个属性都跨越类边界，并由不同的类共享。DAP...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ding.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蟛蜞</div><div class="author-info-description">欢迎您的光临</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Fault-Description-Based-Attribute-Transfer-for-Zero-Sample-Industrial-Fault"><span class="toc-number">1.</span> <span class="toc-text">一、Fault Description Based Attribute Transfer for Zero-Sample Industrial Fault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E7%9A%84%E4%BB%BB%E5%8A%A1%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">针对的任务：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">当前问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">现有研究成果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%95%85%E9%9A%9C%E7%9A%84%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">对故障的描述：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E7%9A%84%E6%8F%8F%E8%BF%B0%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">1.5.</span> <span class="toc-text">属性的描述方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4%E4%B9%8B%E5%A4%84%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">借鉴之处：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3%E5%92%8C%E6%94%B9%E8%BF%9B%E6%96%B9%E5%90%91%EF%BC%9A"><span class="toc-number">1.7.</span> <span class="toc-text">不足和改进方向：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Hybrid-attribute-conditional-adversarial-denoising-autoencoder-for-zero-shot-classification-of-mechanical-intelligent-fault-diagnosis"><span class="toc-number">2.</span> <span class="toc-text">二、Hybrid attribute conditional adversarial denoising autoencoder for zero-shot classification of mechanical intelligent fault diagnosis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%97%AE%E9%A2%98%EF%BC%9A-1"><span class="toc-number">2.1.</span> <span class="toc-text">当前问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C%EF%BC%9A-1"><span class="toc-number">2.2.</span> <span class="toc-text">现有研究成果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%8F%90%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">所提方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E6%A0%87%E5%87%86"><span class="toc-number">2.4.</span> <span class="toc-text">语义属性选择标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%BD%A2%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.5.</span> <span class="toc-text">知识形式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4%E4%B9%8B%E5%A4%84"><span class="toc-number">2.6.</span> <span class="toc-text">借鉴之处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3%E4%B9%8B%E5%A4%84%EF%BC%9A"><span class="toc-number">2.7.</span> <span class="toc-text">不足之处：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Imbalanced-sample-fault-diagnosis-of-rotating-machinery-using-conditional-variational-auto-encoder-generative-adversarial-network"><span class="toc-number">3.</span> <span class="toc-text">三、Imbalanced sample fault diagnosis of rotating machinery using conditional variational auto-encoder generative adversarial network</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%97%AE%E9%A2%98%EF%BC%9A-2"><span class="toc-number">3.1.</span> <span class="toc-text">当前问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6"><span class="toc-number">3.2.</span> <span class="toc-text">现有研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%8F%90%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">所提方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%BF%90%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">知识运用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4%E4%B9%8B%E5%A4%84-1"><span class="toc-number">3.5.</span> <span class="toc-text">借鉴之处</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Improved-adversarial-learning-for-fault-feature-generation-of-wind-turbine-gearbox"><span class="toc-number">4.</span> <span class="toc-text">四、Improved adversarial learning for fault feature generation of wind turbine gearbox</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">当前问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6-1"><span class="toc-number">4.2.</span> <span class="toc-text">现有研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%8F%90%E6%96%B9%E6%B3%95-1"><span class="toc-number">4.3.</span> <span class="toc-text">所提方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81A-case-study-of-conditional-deep-convolutional-generative-adversarial-networks-in-machine-fault-diagnosis"><span class="toc-number">5.</span> <span class="toc-text">五、A case study of conditional deep convolutional generative adversarial networks in machine fault diagnosis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">研究背景：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6-2"><span class="toc-number">5.2.</span> <span class="toc-text">现有研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.3.</span> <span class="toc-text">方法介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4%E4%B9%8B%E5%A4%84-2"><span class="toc-number">5.4.</span> <span class="toc-text">借鉴之处</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81The-Multiclass-Fault-Diagnosis-of-Wind-Turbine-Bearing-Based-on-Multisource-Signal-Fusion-and-Deep-Learning-Generative-Model"><span class="toc-number">6.</span> <span class="toc-text">六、The Multiclass Fault Diagnosis of Wind Turbine Bearing Based on Multisource Signal Fusion and Deep Learning Generative Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="toc-number">6.1.</span> <span class="toc-text">研究背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6-3"><span class="toc-number">6.2.</span> <span class="toc-text">现有研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">6.3.</span> <span class="toc-text">方法介绍：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81Generating-HSR-Bogie-Vibration-Signals-via-Pulse-Voltage-Guided-Conditional-Diffusion-Model%EF%BC%88%E6%9C%AA%E5%AE%8C%E6%88%90%E9%98%85%E8%AF%BB%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">七、Generating HSR Bogie Vibration Signals via Pulse Voltage-Guided Conditional Diffusion Model（未完成阅读）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF-1"><span class="toc-number">7.1.</span> <span class="toc-text">研究背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E5%9F%BA%E7%A1%80"><span class="toc-number">7.2.</span> <span class="toc-text">研究基础</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81Auxiliary-information-guided-industrial-data-augmentation-for-any-shot-fault-learning-and-diagnosis"><span class="toc-number">8.</span> <span class="toc-text">八、Auxiliary information guided industrial data augmentation for any-shot fault learning and diagnosis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%EF%BC%9A-1"><span class="toc-number">8.1.</span> <span class="toc-text">研究背景：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%A0%94%E7%A9%B6-4"><span class="toc-number">8.2.</span> <span class="toc-text">现有研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D-1"><span class="toc-number">8.3.</span> <span class="toc-text">方法介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4%E4%B9%8B%E5%A4%84-3"><span class="toc-number">8.4.</span> <span class="toc-text">借鉴之处</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/06/%E5%88%9B%E4%B8%96%E7%BA%AA-----%E5%BB%BA%E7%AB%99%E9%87%8D%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%B0%8F%E8%AE%A1/" title="创世纪-----建站重大事件小计">创世纪-----建站重大事件小计</a><time datetime="2025-03-06T08:28:36.000Z" title="发表于 2025-03-06 16:28:36">2025-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/01/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-1/" title="漫长的冬季-1">漫长的冬季-1</a><time datetime="2025-03-01T13:00:45.000Z" title="发表于 2025-03-01 21:00:45">2025-03-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/28/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-0/" title="漫长的冬季-0">漫长的冬季-0</a><time datetime="2025-02-28T13:00:45.000Z" title="发表于 2025-02-28 21:00:45">2025-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/27/%E6%BC%AB%E9%95%BF%E7%9A%84%E5%86%AC%E5%AD%A3-%E5%BC%95%E5%AD%90/" title="漫长的冬季-引子">漫长的冬季-引子</a><time datetime="2025-02-27T13:00:45.000Z" title="发表于 2025-02-27 21:00:45">2025-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/22/%E6%9E%95%E4%B8%8B%E7%9A%84%E6%97%B6%E9%97%B4/" title="枕下的时间">枕下的时间</a><time datetime="2025-02-22T14:59:15.000Z" title="发表于 2025-02-22 22:59:15">2025-02-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 蟛蜞</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.4</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://pqhez.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://pqhez.top',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script type="text/javascript" src="/js/waterfall.min.js"></script><script type="text/javascript" src="/js/imgStatus.min.js"></script><script type="text/javascript" src="/js/lately.min.js"></script><script type="text/javascript" src="/js/photo.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
